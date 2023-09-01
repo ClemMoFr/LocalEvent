@@ -59,23 +59,26 @@ const Navbar = ({
             </p>
           </div>
         </Link>
-        <div
-          className={
-            stateNavbar === "search"
-              ? "navbarIconContainerOn"
-              : "navbarIconContainerOff"
-          }
-          onClick={handleNavSearch}
-        >
-          <IoEarth className="navbarIcon" />
-          <p
+
+        <Link to={"/autour-du-monde"}>
+          <div
             className={
-              stateNavbar === "search" ? "navbarIconOn" : "navbarIconOff"
+              stateNavbar === "search"
+                ? "navbarIconContainerOn"
+                : "navbarIconContainerOff"
             }
+            onClick={handleNavSearch}
           >
-            recherche
-          </p>
-        </div>
+            <IoEarth className="navbarIcon" />
+            <p
+              className={
+                stateNavbar === "search" ? "navbarIconOn" : "navbarIconOff"
+              }
+            >
+              recherche
+            </p>
+          </div>
+        </Link>
 
         <div
           className={
