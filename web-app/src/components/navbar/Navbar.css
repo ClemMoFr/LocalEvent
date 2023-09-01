@@ -1,0 +1,57 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navbarLogo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #71a6ff;
+}
+
+.navbarIconContainerOn {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #e7f0ff;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.navbarIconContainerOff {
+  padding: 0px;
+  background-color: #fcfeff;
+  cursor: pointer;
+}
+
+.navbarIconContainerOn p {
+  margin-left: 10px;
+  font-weight: 600;
+  color: #71a6ff;
+}
+
+.navbarIcon {
+  font-size: 30px;
+  color: #71a6ff;
+}
+
+.navbarIconOn {
+  display: block;
+}
+
+.navbarIconOff {
+  display: none;
+}
