@@ -67,7 +67,6 @@ const AroundWorld = () => {
       <div id="map" className="leaflet-map-around-world"></div>
       <input type="text" value={address} onChange={handleAddressChange} />
       <button onClick={() => handleGoTo()}>Go To</button>
-      {coordinates && <p>{coordinates}</p>}
     </div>
   );
 };
