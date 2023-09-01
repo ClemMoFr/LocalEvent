@@ -20,7 +20,7 @@ const Navbar = ({
   return (
     <div className="navbar">
       <div className="iconContainer">
-        <Link to={"/home"}>
+        <Link to={"/"}>
           <div
             className={
               stateNavbar === "home"
