@@ -1,0 +1,34 @@
+.homePageMainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100%;
+}
+
+.leaflet-map {
+  width: 100%;
+  height: 60vh; /* Ajustez la hauteur selon vos besoins */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  border-radius: 0px 0px 30px 30px;
+}
+
+.homePageEventContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 20px auto;
+}
+
+.homePageEventContainer p {
+  font-size: 1.2rem;
+  font-weight: medium;
+}
+
+.homePageCardEvent {
+  width: 100%;
+  height: 200px;
+  overflow-y: scroll;
+}
