@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 import "./HomePage.css";
+import CardEvent from "../../components/card-event/CardEvent";
 
 const HomePage = () => {
   useEffect(() => {
@@ -21,6 +22,13 @@ const HomePage = () => {
       <div id="map" className="leaflet-map"></div>
       <div className="homePageEventContainer">
         <p>Autour de moi</p>
+        <div className="homePageCardEvent">
+          <CardEvent />
+          <CardEvent />
+          <CardEvent />
+          <CardEvent />
+          <CardEvent />
+        </div>
       </div>
     </div>
   );
