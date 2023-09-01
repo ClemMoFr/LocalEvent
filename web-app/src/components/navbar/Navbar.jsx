@@ -7,6 +7,8 @@ import { VscSettings } from "react-icons/vsc";
 
 import { FaUser } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
+
 const Navbar = ({
   stateNavbar,
   handleNavHome,
@@ -18,40 +20,45 @@ const Navbar = ({
   return (
     <div className="navbar">
       <div className="iconContainer">
-        <div
-          className={
-            stateNavbar === "home"
-              ? "navbarIconContainerOn"
-              : "navbarIconContainerOff"
-          }
-          onClick={handleNavHome}
-        >
-          <AiFillHome className="navbarIcon" />
-          <p
+        <Link to={"/home"}>
+          <div
             className={
-              stateNavbar === "home" ? "navbarIconOn" : "navbarIconOff"
+              stateNavbar === "home"
+                ? "navbarIconContainerOn"
+                : "navbarIconContainerOff"
             }
+            onClick={handleNavHome}
           >
-            accueil
-          </p>
-        </div>
-        <div
-          className={
-            stateNavbar === "favorite"
-              ? "navbarIconContainerOn"
-              : "navbarIconContainerOff"
-          }
-          onClick={handleNavFavorite}
-        >
-          <AiFillHeart className="navbarIcon" />
-          <p
+            <AiFillHome className="navbarIcon" />
+            <p
+              className={
+                stateNavbar === "home" ? "navbarIconOn" : "navbarIconOff"
+              }
+            >
+              accueil
+            </p>
+          </div>
+        </Link>
+
+        <Link to={"/favoris"}>
+          <div
             className={
-              stateNavbar === "favorite" ? "navbarIconOn" : "navbarIconOff"
+              stateNavbar === "favorite"
+                ? "navbarIconContainerOn"
+                : "navbarIconContainerOff"
             }
+            onClick={handleNavFavorite}
           >
-            favoris
-          </p>
-        </div>
+            <AiFillHeart className="navbarIcon" />
+            <p
+              className={
+                stateNavbar === "favorite" ? "navbarIconOn" : "navbarIconOff"
+              }
+            >
+              favoris
+            </p>
+          </div>
+        </Link>
         <div
           className={
             stateNavbar === "search"
@@ -69,6 +76,7 @@ const Navbar = ({
             recherche
           </p>
         </div>
+
         <div
           className={
             stateNavbar === "panel"
@@ -86,6 +94,7 @@ const Navbar = ({
             panneau admin
           </p>
         </div>
+
         <div
           className={
             stateNavbar === "settings"
