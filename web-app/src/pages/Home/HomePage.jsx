@@ -4,6 +4,8 @@ import L from "leaflet";
 
 import "./HomePage.css";
 import CardEvent from "../../components/card-event/CardEvent";
+import { events } from "../../config/constant";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   useEffect(() => {
@@ -23,11 +25,11 @@ const HomePage = () => {
       <div className="homePageEventContainer">
         <p>Autour de moi</p>
         <div className="homePageCardEvent">
-          <CardEvent />
-          <CardEvent />
-          <CardEvent />
-          <CardEvent />
-          <CardEvent />
+          {events.map((event, index) => (
+            <Link to={`/${event.title}`} key={index}>
+              <CardEvent eventTitle={event.title} eventDate={event.dates} />
+            </Link>
+          ))}
         </div>
       </div>
     </div>
