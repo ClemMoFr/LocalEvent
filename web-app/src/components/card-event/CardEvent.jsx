@@ -3,13 +3,13 @@ import { BsArrowRight } from "react-icons/bs";
 
 import "./CardEvent.css";
 
-const CardEvent = () => {
+const CardEvent = ({ eventTitle, eventDate }) => {
   return (
     <div className="cardEventMainContainer">
       <div className="cardEventImage" />
       <div className="cardEventInfo">
-        <p>Les voix du printemps</p>
-        <p>Du 15 au 17 juillet 2023</p>
+        <p>{eventTitle}</p>
+        <p>{eventDate}</p>
       </div>
       <BsArrowRight className="arrow" />
     </div>
