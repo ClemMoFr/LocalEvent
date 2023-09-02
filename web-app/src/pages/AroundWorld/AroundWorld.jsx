@@ -5,6 +5,8 @@ import axios from "axios";
 
 import "./AroundWorld.css";
 
+import CardEvent from "../../components/card-event/CardEvent";
+
 const AroundWorld = () => {
   const mapRef = useRef(null);
   const [address, setAddress] = useState("");
@@ -44,8 +46,7 @@ const AroundWorld = () => {
         if (mapRef.current) {
           const [lat, lon] = newCoordinates.map((coord) =>
             parseFloat(coord.trim())
-          ); // Assurez-vous de traiter correctement les coordonnées.
-
+          );
           if (!isNaN(lat) && !isNaN(lon)) {
             mapRef.current.setView([lat, lon], 16);
           } else {
@@ -53,7 +54,7 @@ const AroundWorld = () => {
           }
         }
       } else {
-        setCoordinates(null); // Réinitialiser les coordonnées en cas de réponse invalide.
+        setCoordinates(null);
         console.error("Adresse introuvable");
       }
     } catch (error) {
@@ -66,7 +67,15 @@ const AroundWorld = () => {
       <p className="aroundWorldTitle">Des événements partout dans le monde</p>
       <div id="map" className="leaflet-map-around-world"></div>
       <input type="text" value={address} onChange={handleAddressChange} />
-      <button onClick={() => handleGoTo()}>Go To</button>
+      <button onClick={() => handleGoTo()}>Rechercher</button>
+      <p className="aroundWorldTitle">Autour de moi</p>
+      <div className="aroundWorldCardContainer">
+        <CardEvent />
+        <CardEvent />
+        <CardEvent />
+        <CardEvent />
+        <CardEvent />
+      </div>
     </div>
   );
 };
