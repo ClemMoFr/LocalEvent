@@ -4,6 +4,7 @@ import HomePage from "../pages/Home/HomePage";
 import Favorite from "../pages/Favorite/Favorite";
 import AroundWorld from "../pages/AroundWorld/AroundWorld";
 import CardEventDetails from "../components/card-event-details/CardEventDetails";
+import PanelAdmin from "../pages/PanelAdmin/PanelAdmin";
 
 const RoutesPaths = () => {
   return (
@@ -12,6 +13,7 @@ const RoutesPaths = () => {
       <Route path="/favoris" element={<Favorite />}></Route>
       <Route path="/autour-du-monde" element={<AroundWorld />}></Route>
       <Route path="/:movieTitle" element={<CardEventDetails />}></Route>
+      <Route path="/panel-admin" element={<PanelAdmin />}></Route>
     </Routes>
   );
 };

@@ -80,23 +80,25 @@ const Navbar = ({
           </div>
         </Link>
 
-        <div
-          className={
-            stateNavbar === "panel"
-              ? "navbarIconContainerOn"
-              : "navbarIconContainerOff"
-          }
-          onClick={handleNavPanel}
-        >
-          <VscSettings className="navbarIcon" />
-          <p
+        <Link to={"/panel-admin"}>
+          <div
             className={
-              stateNavbar === "panel" ? "navbarIconOn" : "navbarIconOff"
+              stateNavbar === "panel"
+                ? "navbarIconContainerOn"
+                : "navbarIconContainerOff"
             }
+            onClick={handleNavPanel}
           >
-            panneau admin
-          </p>
-        </div>
+            <VscSettings className="navbarIcon" />
+            <p
+              className={
+                stateNavbar === "panel" ? "navbarIconOn" : "navbarIconOff"
+              }
+            >
+              panel admin
+            </p>
+          </div>
+        </Link>
 
         <div
           className={
