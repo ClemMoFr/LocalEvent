@@ -1,0 +1,189 @@
+.popupAddEventMainContainerOn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fcfeff;
+  padding: 30px;
+}
+
+.popupAddEventMainContainerOff {
+  display: none;
+}
+
+.popupAddEventTitle {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 5px auto;
+}
+
+.popupAddEventMainContainerOn input {
+  height: 50px;
+  background-color: #e7f0ff;
+  border-radius: 5px;
+  border: none;
+  color: #71a6ff;
+  font-size: 1rem;
+  padding-left: 10px;
+}
+
+.popupAddEventTopBlock {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 160px;
+}
+
+.popupAddEventTopBlock .left,
+.popupAddEventTopBlock .right {
+  width: 50%;
+  height: 100%;
+}
+
+.popupAddEventTopBlock .left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+.popupAddEventTopBlock .left input,
+.popupAddEventTopBlock .right input {
+  width: 100%;
+}
+
+.popupAddEventTopBlock .right div {
+  display: flex;
+  width: 100%;
+  height: 135px;
+  background-color: #e7f0ff;
+  border-radius: 5px;
+  position: relative;
+}
+
+.popupAddEventDescriptionBlock {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.popupAddEventDescriptionBlock textarea {
+  height: 120px;
+  background-color: #e7f0ff;
+  color: #71a6ff;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  padding-left: 10px;
+}
+
+.popupAddEventBottomBlock {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.popupAddEventBottomBlock label:nth-child(1) {
+  width: 70%;
+  margin-right: 20px;
+}
+
+.popupAddEventBottomBlock label:nth-child(2) {
+  width: 30%;
+}
+
+.popupAddEventBottomBlock select {
+  width: 100%;
+}
+
+.popupAddEventBottomBlock input {
+  width: 80%;
+}
+
+.popupAddEventBottomBlock input {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.popupAddEventBottomBlock select {
+  height: 50px;
+  background-color: #e7f0ff;
+  border-radius: 5px;
+  border: none;
+  padding: 0px 10px;
+  color: #71a6ff;
+  font-size: 1rem;
+}
+
+.leaflet-map-popup-add-event {
+  width: 100%;
+  height: 20vh; /* Ajustez la hauteur selon vos besoins */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.popupAddEventMainContainerOn button {
+  border-radius: 30px;
+  background-color: #72a6ff;
+  box-shadow: 0px 0px 30px 0px rgba(201, 227, 240, 0.3);
+  margin: 0px auto;
+  border: none;
+  margin: 20px auto;
+  padding: 15px 20px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.popupAddEventBottomBlockInputAdressContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btnSearchAdress {
+  width: 40px;
+  height: 40px;
+  background-color: #71a6ff;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popupAddEventBtnAddEvent {
+  cursor: pointer;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+}
+
+.customFileInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.iconCameraPlus {
+  font-size: 3rem;
+  color: #71a6ff;
+}
