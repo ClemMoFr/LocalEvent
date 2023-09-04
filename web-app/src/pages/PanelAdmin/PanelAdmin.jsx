@@ -9,6 +9,7 @@ import PopupAddEvent from "../../components/popup-add-event/PopupAddEvent";
 
 const PanelAdmin = () => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [statePopupAddEvent, setStatePopupAddEvent] = useState(false);
 
   useEffect(() => {
     if (isMapLoaded) {
