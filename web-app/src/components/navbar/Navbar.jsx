@@ -100,23 +100,25 @@ const Navbar = ({
           </div>
         </Link>
 
-        <div
-          className={
-            stateNavbar === "settings"
-              ? "navbarIconContainerOn"
-              : "navbarIconContainerOff"
-          }
-          onClick={handleNavSetting}
-        >
-          <FaUser className="navbarIcon" />
-          <p
+        <Link to={"/paramètres"}>
+          <div
             className={
-              stateNavbar === "settings" ? "navbarIconOn" : "navbarIconOff"
+              stateNavbar === "settings"
+                ? "navbarIconContainerOn"
+                : "navbarIconContainerOff"
             }
+            onClick={handleNavSetting}
           >
-            paramètres
-          </p>
-        </div>
+            <FaUser className="navbarIcon" />
+            <p
+              className={
+                stateNavbar === "settings" ? "navbarIconOn" : "navbarIconOff"
+              }
+            >
+              paramètres
+            </p>
+          </div>
+        </Link>
       </div>
       <p className="navbarLogo">LocalEvent.</p>
     </div>

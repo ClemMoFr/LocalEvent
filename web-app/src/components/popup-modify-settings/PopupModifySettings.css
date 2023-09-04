@@ -1,0 +1,83 @@
+.popupModifySettingsMainContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #fcfeff;
+}
+
+.popupModifySettingsTitle {
+  font-weight: medium;
+  font-size: 1.2rem;
+}
+
+.settingsSubtitle {
+  margin: 30px auto;
+  font-size: 1.2rem;
+}
+
+.popupModifySettingsMainContainer label {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 15px auto;
+}
+
+.popupModifySettingsMainContainer input {
+  height: 50px;
+  background-color: #e7f0ff;
+  border-radius: 5px;
+  border: none;
+  color: #71a6ff;
+  font-size: 1rem;
+  padding-left: 10px;
+}
+
+.popupModifySettingsMainContainer form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modeContainer {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.modeContainer p {
+  margin-right: 10px;
+}
+
+.popupModifySettingsMainContainer select {
+  border: none;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 40px;
+  font-weight: 1.7rem;
+  color: #71a6ff;
+  background-color: #e7f0ff;
+  cursor: pointer;
+}
+
+.settingsButton {
+  border-radius: 30px;
+  background-color: #72a6ff;
+  box-shadow: 0px 0px 30px 0px rgba(201, 227, 240, 0.3);
+  margin: 0px auto;
+  border: none;
+  margin: 40px auto;
+  padding: 15px 30px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
