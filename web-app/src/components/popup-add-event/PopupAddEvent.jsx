@@ -93,7 +93,7 @@ const PopupAddEvent = () => {
   };
 
   return (
-    <form className={"popupAddEventMainContainerOn"}>
+    <form className={"popupAddEventMainContainer"}>
       <label className="popupAddEventTitle">
         <p>nom de l'événement</p>
         <input></input>
