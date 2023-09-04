@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./PanelAdmin.css";
 
@@ -8,13 +8,20 @@ import CardEvent from "../../components/card-event/CardEvent";
 import PopupAddEvent from "../../components/popup-add-event/PopupAddEvent";
 
 const PanelAdmin = () => {
-  const [statePopupAddEvent, setStatePopupAddEvent] = useState(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+
+  useEffect(() => {
+    if (isMapLoaded) {
+      setStatePopupAddEvent(true);
+    }
+  }, [isMapLoaded]);
+
   return (
     <div className="panelAdminMainContainer">
       <p className="panelAdminTitle">Gérer vos événements</p>
       <button
         className="panelAdminAddEventButton"
-        onClick={() => setStatePopupAddEvent(true)}
+        onClick={() => setIsMapLoaded(true)}
       >
         Ajouter un événement
       </button>
@@ -29,7 +36,7 @@ const PanelAdmin = () => {
           </Link>
         ))}
       </div>
-      <PopupAddEvent statePopupAddEvent={statePopupAddEvent} />
+      {isMapLoaded && <PopupAddEvent />}
     </div>
   );
 };
