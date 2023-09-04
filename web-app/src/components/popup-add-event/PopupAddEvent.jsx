@@ -7,7 +7,7 @@ import axios from "axios";
 
 import "./PopupAddEvent.css";
 
-const PopupAddEvent = ({ statePopupAddEvent }) => {
+const PopupAddEvent = () => {
   const [map, setMap] = useState(null);
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState("");
@@ -23,6 +23,9 @@ const PopupAddEvent = ({ statePopupAddEvent }) => {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(initialMap);
+
+    const initialCenter = initialMap.getCenter();
+    console.log("Coordonnées du centre initiales :", initialCenter);
 
     setMap(initialMap);
 
@@ -50,8 +53,23 @@ const PopupAddEvent = ({ statePopupAddEvent }) => {
         setCoordinates(
           `Latitude: ${response.data.lat}, Longitude: ${response.data.lon}`
         );
+        console.log(
+          "Coordonnées de l'input :",
+          response.data.lat,
+          response.data.lon
+        );
+
         if (map) {
-          map.setView([response.data.lat, response.data.lon], 20);
+          map.setView([response.data.lat, response.data.lon], 20, {
+            animate: true,
+          });
+          const center = map.getCenter();
+          console.log(
+            "Coordonnées du centre de la carte :",
+            center.lat,
+            center.lng
+          );
+
           if (marker) {
             marker.remove();
           }
@@ -86,13 +104,7 @@ const PopupAddEvent = ({ statePopupAddEvent }) => {
   };
 
   return (
-    <form
-      className={
-        statePopupAddEvent === true
-          ? "popupAddEventMainContainerOn"
-          : "popupAddEventMainContainerOff"
-      }
-    >
+    <form className={"popupAddEventMainContainerOn"}>
       <label className="popupAddEventTitle">
         <p>nom de l'événement</p>
         <input></input>
