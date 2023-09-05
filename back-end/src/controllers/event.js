@@ -20,34 +20,40 @@ const getById = async (req, res) => {
 const post = async (req, res) => {
   const {
     eventTitle,
+    eventDate,
     eventTicketingTitle,
     eventImage,
     eventDescription,
-    eventAdress,
+    eventAddress,
     eventType,
+    isFavorite,
   } = req.body;
   if (!eventTitle) {
     res.status(400).json({ error: "Le titre de l'événement est manquant" });
   } else if (!eventTicketingTitle) {
     res.status(400).json({ error: "Le lien de la billeterie est manquant" });
   } else if (!eventImage) {
-    res.status(400).json({ error: "L'image est manquante" });
+    res.status(400).json({ error: "La date de l'événement est manquante" });
+  } else if (!eventDate) {
+    res.status(400).json({ error: "L'image de l'événement est manquante" });
   } else if (!eventDescription) {
     res
       .status(400)
       .json({ error: "La description de l'événement est manquante" });
-  } else if (!eventAdress) {
+  } else if (!eventAddress) {
     res.status(400).json({ error: "L'adresse de l'événement est manquante" });
   } else if (!eventType) {
     res.status(400).json({ error: "Le type de l'événement est manquant" });
   } else {
     const newEvent = await createEvent(
       eventTitle,
+      eventDate,
       eventTicketingTitle,
       eventImage,
       eventDescription,
-      eventAdress,
-      eventType
+      eventAddress,
+      eventType,
+      isFavorite
     );
     res.status(201).json(newEvent);
   }
@@ -57,22 +63,26 @@ const put = async (req, res) => {
   const { id } = req.params;
   const {
     eventTitle,
+    eventDate,
     eventTicketingTitle,
     eventImage,
     eventDescription,
-    eventAdress,
+    eventAddress,
     eventType,
+    isFavorite,
   } = req.body;
   {
     try {
       const updatedEvent = await updateEvent(
         id,
         eventTitle,
+        eventDate,
         eventTicketingTitle,
         eventImage,
         eventDescription,
-        eventAdress,
-        eventType
+        eventAddress,
+        eventType,
+        isFavorite
       );
       res.json(updatedEvent);
     } catch (error) {
