@@ -6,11 +6,13 @@ async function initializeEvent() {
   await EventRepository.save({
     eventTitle: "Foire du trône",
     eventTicketingTitle: "https://www.google.com/",
+    eventDate: "Du 6 juillet au 21 juillet",
     eventImage: "test",
     eventDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in euismod turpis. Sed erat mauris, efficitur sit amet sem ac, dictum imperdiet magna. Integer dignissim suscipit ligula, a blandit purus finibus et. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque luctus semper nibh, placerat fermentum eros condimentum a. Cras pretium, metus eu blandit ultrices, lectus urna sodales nibh, at luctus neque lorem at erat. Donec erat ligula, tempor id tortor sit amet, venenatis porta urna.",
-    eventAdress: "11 rue saint hippolyte, Lyon",
+    eventAddress: "11 rue saint hippolyte, Lyon",
     eventType: "Loisir",
+    isFavorite: true,
   });
 }
 
@@ -26,20 +28,24 @@ async function getEventById(id) {
 
 async function createEvent(
   eventTitle,
+  eventDate,
   eventTicketingTitle,
   eventImage,
   eventDescription,
-  eventAdress,
-  eventType
+  eventAddress,
+  eventType,
+  isFavorite
 ) {
   const EventRepository = await getEventRepository();
   const newEvent = EventRepository.create({
     eventTitle,
+    eventDate,
     eventTicketingTitle,
     eventImage,
     eventDescription,
-    eventAdress,
+    eventAddress,
     eventType,
+    isFavorite,
   });
   await EventRepository.save(newEvent);
   return newEvent;
@@ -48,11 +54,13 @@ async function createEvent(
 async function updateEvent(
   id,
   eventTitle,
+  eventDate,
   eventTicketingTitle,
   eventImage,
   eventDescription,
-  eventAdress,
-  eventType
+  eventAddress,
+  eventType,
+  isFavorite
 ) {
   const EventRepository = await getEventRepository();
   const existingEvent = await EventRepository.findOneBy({ id });
@@ -62,11 +70,13 @@ async function updateEvent(
   return EventRepository.save({
     id,
     eventTitle,
+    eventDate,
     eventTicketingTitle,
     eventImage,
     eventDescription,
-    eventAdress,
+    eventAddress,
     eventType,
+    isFavorite,
   });
 }
 
