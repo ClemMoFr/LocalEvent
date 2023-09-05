@@ -1,0 +1,12 @@
+PUT http://localhost:4000/event/1541dcbd-0138-4a18-af6a-e0fd1ab4db39
+Content-Type: application/json
+
+
+ {
+    "eventTitle":"Super anniversaire 2",
+    "eventTicketingTitle":"https://www.youtube.com/",
+    "eventImage":"image de l'event",
+    "eventDescription":"ceci est la description",
+    "eventAdress":"9 rue de la charretière, Saint Genis Laval",
+    "eventType":"Soirée"
+ }
