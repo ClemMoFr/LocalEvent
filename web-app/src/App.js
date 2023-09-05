@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import RoutesPaths from "./config/RoutesPaths";
 import Navbar from "./components/navbar/Navbar";
 
 function App() {
-  const [stateNavbar, setStateNavbar] = useState("home");
+  const [stateNavbar, setStateNavbar] = useState(
+    localStorage.getItem("stateNavbar") || "home"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("stateNavbar", stateNavbar);
+  }, [stateNavbar]);
+
   return (
     <BrowserRouter>
       <RoutesPaths />
