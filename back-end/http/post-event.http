@@ -1,0 +1,11 @@
+POST http://localhost:4000/event
+Content-Type: application/json
+
+ {  
+    "eventTitle":"Super anniversaire",
+    "eventTicketingTitle":"https://www.youtube.com/",
+    "eventImage":"image de l'event",
+    "eventDescription":"ceci est la description",
+    "eventAdress":"9 rue de la charretière, Saint Genis Laval",
+    "eventType":"Soirée"
+ }

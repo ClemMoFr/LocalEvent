@@ -1,4 +1,8 @@
 const express = require("express");
+
+const eventControllers = require("./controllers/event");
+const { initializeEvent } = require("./models/Event/manager");
+
 const axios = require("axios");
 const app = express();
 const PORT = 4000;
@@ -14,6 +18,13 @@ app.use(
     allowedHeaders: ["Content-Type"],
   })
 );
+
+const EVENT_PATH = "/event";
+app.get(EVENT_PATH, eventControllers.get);
+app.get(`${EVENT_PATH}/:id`, eventControllers.getById);
+app.post(EVENT_PATH, eventControllers.post);
+app.put(`${EVENT_PATH}/:id`, eventControllers.put);
+app.delete(`${EVENT_PATH}/:id`, eventControllers.del);
 
 app.get("/get-coordinates", async (req, res) => {
   const address = req.query.address;
@@ -39,6 +50,11 @@ app.get("/get-coordinates", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Le serveur tourne sur le port ${PORT} 👍`);
-});
+async function start() {
+  await initializeEvent();
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT} 👍`);
+  });
+}
+
+start();
