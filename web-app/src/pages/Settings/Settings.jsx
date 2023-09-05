@@ -8,6 +8,13 @@ import PopupModifySettings from "../../components/popup-modify-settings/PopupMod
 
 const Settings = () => {
   const [statePopupModifyProfil, setStatePopupModifyProfil] = useState(false);
+  const [stateWave, setStateWave] = useState(false);
+
+  function upgradeProVersion() {
+    setStatePopupModifyProfil(true);
+    setStateWave(true);
+  }
+
   return (
     <div className="settingsMainContainer">
       <p className="settingsTitle">Gérer votre profil</p>
@@ -19,11 +26,11 @@ const Settings = () => {
         <p>Editer le profil</p>
         <BsArrowRight />
       </button>
-      <p className="linkProVersion">
-        Envie d’essayer la version pro ?{" "}
+      <p className="linkProVersion" onClick={() => upgradeProVersion(true)}>
+        Envie d’essayer la version pro ?
         <div className="linkProVersionUnderline" />
       </p>
-      {statePopupModifyProfil && <PopupModifySettings />}
+      {statePopupModifyProfil && <PopupModifySettings stateWave={stateWave} />}
     </div>
   );
 };

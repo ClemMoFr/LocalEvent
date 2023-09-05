@@ -2,7 +2,7 @@ import React from "react";
 
 import "./PopupModifySettings.css";
 
-const PopupModifySettings = () => {
+const PopupModifySettings = ({ stateWave }) => {
   return (
     <div className="popupModifySettingsMainContainer">
       <p className="settingsTitle">Gérer votre profil</p>
@@ -25,6 +25,11 @@ const PopupModifySettings = () => {
           <input></input>
         </label>
         <div className="modeContainer">
+          <div
+            class={
+              stateWave === true ? "wave-pulse-active" : "wave-pulse-not-active"
+            }
+          ></div>
           <p>Mode :</p>
           <select id="mode">
             <option value="utilisateur">Utilisateur</option>

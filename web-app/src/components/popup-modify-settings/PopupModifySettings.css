@@ -51,6 +51,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+  position: relative;
 }
 
 .modeContainer p {
@@ -80,4 +81,33 @@
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.wave-pulse-active {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(96, 123, 219);
+  border-radius: 50%;
+  animation: pulseAnimation 2s infinite ease-in-out;
+  box-shadow: 0 0 0 0 rgba(96, 123, 219, 0.7);
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: block;
+}
+
+.wave-pulse-not-active {
+  display: none;
+}
+
+@keyframes pulseAnimation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(96, 123, 219, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(96, 123, 219, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(96, 123, 219, 0.7);
+  }
 }
