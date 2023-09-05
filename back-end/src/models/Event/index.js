@@ -11,6 +11,9 @@ module.exports = new EntitySchema({
     eventTitle: {
       type: "text",
     },
+    eventDate: {
+      type: "text",
+    },
     eventTicketingTitle: {
       type: "text",
     },
@@ -20,11 +23,14 @@ module.exports = new EntitySchema({
     eventDescription: {
       type: "text",
     },
-    eventAdress: {
+    eventAddress: {
       type: "text",
     },
     eventType: {
       type: "text",
+    },
+    isFavorite: {
+      type: "boolean",
     },
   },
 });
