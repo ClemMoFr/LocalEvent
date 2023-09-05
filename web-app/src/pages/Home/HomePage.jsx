@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 import "./HomePage.css";
 import CardEvent from "../../components/card-event/CardEvent";
-import { events } from "../../config/constant";
+
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
@@ -19,17 +19,36 @@ const HomePage = () => {
     };
   }, []);
 
+  const [events, setEvents] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("http://localhost:4000/event");
+      const fetchedEvent = await response.json();
+      setEvents(fetchedEvent);
+      setIsLoading(false);
+    })();
+  }, []);
+
   return (
     <div className="homePageMainContainer">
       <div id="map" className="leaflet-map"></div>
       <div className="homePageEventContainer">
         <p>Autour de moi</p>
         <div className="homePageCardEvent">
-          {events.map((event, index) => (
-            <Link to={`/${event.title}`} key={index}>
-              <CardEvent eventTitle={event.title} eventDate={event.dates} />
-            </Link>
-          ))}
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            events.map((event, index) => (
+              <Link to={`/${event.title}`} key={index}>
+                <CardEvent
+                  eventTitle={event.eventTitle}
+                  eventDate={event.eventAdress}
+                />
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </div>
