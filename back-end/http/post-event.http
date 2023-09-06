@@ -9,5 +9,7 @@ Content-Type: application/json
    "eventDescription":"ceci est la description",
    "eventAddress":"9 rue de la charretière, Saint Genis Laval",
    "eventType":"Soirée",
+   "eventLat": 43.597373962402344,
+   "eventLon": 2.2688302993774414,
    "isFavorite": false
  }

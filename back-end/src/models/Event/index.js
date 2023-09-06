@@ -29,6 +29,12 @@ module.exports = new EntitySchema({
     eventType: {
       type: "text",
     },
+    eventLat: {
+      type: "int",
+    },
+    eventLon: {
+      type: "int",
+    },
     isFavorite: {
       type: "boolean",
     },
