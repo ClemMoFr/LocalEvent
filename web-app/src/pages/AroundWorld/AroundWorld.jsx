@@ -93,6 +93,29 @@ const AroundWorld = () => {
     }
   };
 
+  const [eventsToDisplay, setEventsToDisplay] = useState(null);
+
+  const updateEventsToDisplay = () => {
+    if (map && events) {
+      const bounds = map.getBounds();
+      const filteredEvents = events.filter((event) => {
+        const eventLatLng = L.latLng(event.eventLat, event.eventLon);
+        return bounds.contains(eventLatLng);
+      });
+      setEventsToDisplay(filteredEvents);
+    }
+  };
+
+  useEffect(() => {
+    if (map) {
+      map.on("moveend", updateEventsToDisplay);
+    }
+  }, [map, events]);
+
+  useEffect(() => {
+    updateEventsToDisplay();
+  }, [map, events]);
+
   return (
     <div className="aroundWorldMainContainer">
       <p className="aroundWorldTitle">Des événements partout dans le monde</p>
@@ -101,10 +124,8 @@ const AroundWorld = () => {
       <button onClick={() => handleGoTo()}>Rechercher</button>
       <p className="aroundWorldTitle">Autour de moi</p>
       <div className="aroundWorldCardContainer">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          events.map((event, index) => (
+        {eventsToDisplay ? (
+          eventsToDisplay.map((event, index) => (
             <Link to={`/${event.eventTitle}`} key={index}>
               <CardEvent
                 eventTitle={event.eventTitle}
@@ -112,6 +133,8 @@ const AroundWorld = () => {
               />
             </Link>
           ))
+        ) : (
+          <p>No events to display</p>
         )}
       </div>
     </div>
