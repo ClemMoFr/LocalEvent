@@ -13,7 +13,7 @@ const HomePage = () => {
 
   useEffect(() => {
     // Créez la carte et définissez-la dans la variable map
-    const newMap = L.map("map").setView([45.75, 4.85], 13);
+    const newMap = L.map("map").setView([45.75, 4.83], 13);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -62,7 +62,7 @@ const HomePage = () => {
             <p>Loading...</p>
           ) : (
             events.map((event, index) => (
-              <Link to={`/${event.title}`} key={index}>
+              <Link to={`/${event.eventTitle}`} key={index}>
                 <CardEvent
                   eventTitle={event.eventTitle}
                   eventDate={event.eventDate}

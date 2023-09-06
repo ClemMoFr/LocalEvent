@@ -13,7 +13,7 @@ const RoutesPaths = () => {
       <Route path="/" element={<HomePage />}></Route>
       <Route path="/favoris" element={<Favorite />}></Route>
       <Route path="/autour-du-monde" element={<AroundWorld />}></Route>
-      <Route path="/:movieTitle" element={<CardEventDetails />}></Route>
+      <Route path="/:eventTitle" element={<CardEventDetails />}></Route>
       <Route path="/panel-admin" element={<PanelAdmin />}></Route>
       <Route path="/paramètres" element={<Settings />}></Route>
     </Routes>
