@@ -12,11 +12,13 @@ const AroundWorld = () => {
   const mapRef = useRef(null);
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState("");
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
     if (!mapRef.current) {
       // Créez la carte uniquement si elle n'existe pas déjà.
       const map = L.map("map").setView([45.75, 4.85], 16);
+      setMap(map);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -36,6 +38,22 @@ const AroundWorld = () => {
       setIsLoading(false);
     })();
   }, []);
+
+  useEffect(() => {
+    const markerIcon = L.icon({
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      iconSize: [25, 41],
+    });
+    // Ajoutez les marqueurs à la carte en utilisant la variable map
+    if (map && events) {
+      events.forEach((event, index) => {
+        L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
+          .addTo(map)
+          .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
+          .openPopup();
+      });
+    }
+  }, [map, events]);
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
@@ -78,7 +96,7 @@ const AroundWorld = () => {
   return (
     <div className="aroundWorldMainContainer">
       <p className="aroundWorldTitle">Des événements partout dans le monde</p>
-      <div id="map" className="leaflet-map-around-world"></div>
+      <div id="map" className="leaflet-map-around-world" ref={map}></div>
       <input type="text" value={address} onChange={handleAddressChange} />
       <button onClick={() => handleGoTo()}>Rechercher</button>
       <p className="aroundWorldTitle">Autour de moi</p>
