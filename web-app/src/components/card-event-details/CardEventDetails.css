@@ -43,6 +43,7 @@
   box-shadow: 0px 0px 30px 0px rgba(201, 227, 240, 0.3);
   border: none;
   cursor: pointer;
+  text-align: center;
 }
 
 .cardEventDetailsDescription {
