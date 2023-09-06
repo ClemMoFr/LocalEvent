@@ -119,7 +119,7 @@ const AroundWorld = () => {
   return (
     <div className="aroundWorldMainContainer">
       <p className="aroundWorldTitle">Des événements partout dans le monde</p>
-      <div id="map" className="leaflet-map-around-world" ref={map}></div>
+      <div id="map" className="leaflet-map-around-world"></div>
       <input type="text" value={address} onChange={handleAddressChange} />
       <button onClick={() => handleGoTo()}>Rechercher</button>
       <p className="aroundWorldTitle">Autour de moi</p>
