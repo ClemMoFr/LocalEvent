@@ -6,23 +6,59 @@ import axios from "axios";
 import "./AroundWorld.css";
 
 import CardEvent from "../../components/card-event/CardEvent";
+import { Link } from "react-router-dom";
 
 const AroundWorld = () => {
   const mapRef = useRef(null);
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState("");
 
+  const [map, setMap] = useState(null);
+
   useEffect(() => {
-    if (!mapRef.current) {
-      // Créez la carte uniquement si elle n'existe pas déjà.
-      const map = L.map("map").setView([45.75, 4.85], 16);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-      mapRef.current = map; // Enregistrez la carte dans la référence.
-    }
+    // Créez la carte et définissez-la dans la variable map
+    const newMap = L.map("map").setView([45.75, 4.83], 13);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(newMap);
+
+    // Mettez à jour la variable map avec la nouvelle carte
+    setMap(newMap);
+
+    return () => {
+      // Supprimez la carte lorsque le composant est démonté
+      newMap.remove();
+    };
   }, []);
+
+  const [events, setEvents] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("http://localhost:4000/event");
+      const fetchedEvent = await response.json();
+      setEvents(fetchedEvent);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  useEffect(() => {
+    const markerIcon = L.icon({
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      iconSize: [25, 41],
+    });
+    // Ajoutez les marqueurs à la carte en utilisant la variable map
+    if (map && events) {
+      events.forEach((event, index) => {
+        L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
+          .addTo(map)
+          .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
+          .openPopup();
+      });
+    }
+  }, [map, events]);
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
@@ -70,11 +106,18 @@ const AroundWorld = () => {
       <button onClick={() => handleGoTo()}>Rechercher</button>
       <p className="aroundWorldTitle">Autour de moi</p>
       <div className="aroundWorldCardContainer">
-        <CardEvent />
-        <CardEvent />
-        <CardEvent />
-        <CardEvent />
-        <CardEvent />
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          events.map((event, index) => (
+            <Link to={`/${event.eventTitle}`} key={index}>
+              <CardEvent
+                eventTitle={event.eventTitle}
+                eventDate={event.eventDate}
+              />
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );
