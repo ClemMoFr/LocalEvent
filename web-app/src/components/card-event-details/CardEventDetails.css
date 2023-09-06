@@ -37,7 +37,7 @@
   background-color: #ffffff;
   color: #71a6ff;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.8rem;
   border-radius: 40px;
   background: #fff;
   box-shadow: 0px 0px 30px 0px rgba(201, 227, 240, 0.3);
@@ -77,4 +77,25 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   border-radius: 30px;
+}
+
+.cardEventButtonLinlAndHeartContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.cardEventFavoriteFull,
+.cardEventFavoriteEmpty {
+  font-size: 3rem;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.cardEventFavoriteFull {
+  color: #f84b4b;
+}
+.cardEventFavoriteEmpty {
+  color: #f84b4b;
 }
