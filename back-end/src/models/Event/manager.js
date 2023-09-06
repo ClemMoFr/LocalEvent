@@ -12,8 +12,8 @@ async function initializeEvent() {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in euismod turpis. Sed erat mauris, efficitur sit amet sem ac, dictum imperdiet magna. Integer dignissim suscipit ligula, a blandit purus finibus et. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque luctus semper nibh, placerat fermentum eros condimentum a. Cras pretium, metus eu blandit ultrices, lectus urna sodales nibh, at luctus neque lorem at erat. Donec erat ligula, tempor id tortor sit amet, venenatis porta urna.",
     eventAddress: "11 rue saint hippolyte, Lyon",
     eventType: "Loisir",
-    eventLat: 43.597373962402344,
-    eventLon: 2.2688302993774414,
+    eventLat: 45.74680709838867,
+    eventLon: 4.863496780395508,
     isFavorite: true,
   });
 }
