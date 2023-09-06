@@ -4,11 +4,15 @@ import L from "leaflet";
 
 import "./CardEventDetails.css";
 
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+
 import { useParams } from "react-router-dom";
 
 const CardEventDetails = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  console.log(isFavorite);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,12 +75,26 @@ const CardEventDetails = () => {
               <p className="cardEventTitle">{event.eventTitle}</p>
               <p className="cardEventDates">{event.eventDate}</p>
               <p className="cardEventAdress">{event.eventAddress}</p>
-              <a
-                href={event.eventTicketingTitle}
-                className="cardEventButtonLinkEvent"
-              >
-                Lien de l'événement
-              </a>
+              <div className="cardEventButtonLinlAndHeartContainer">
+                <a
+                  href={event.eventTicketingTitle}
+                  className="cardEventButtonLinkEvent"
+                >
+                  Lien de l'événement
+                </a>
+
+                {isFavorite === true ? (
+                  <AiFillHeart
+                    className="cardEventFavoriteFull"
+                    onClick={() => setIsFavorite(false)}
+                  />
+                ) : (
+                  <AiOutlineHeart
+                    className="cardEventFavoriteFull"
+                    onClick={() => setIsFavorite(true)}
+                  />
+                )}
+              </div>
             </div>
           </div>
           <div className="cardEventDetailsDescription">
