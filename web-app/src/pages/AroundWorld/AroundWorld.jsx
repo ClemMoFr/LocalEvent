@@ -13,23 +13,16 @@ const AroundWorld = () => {
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState("");
 
-  const [map, setMap] = useState(null);
-
   useEffect(() => {
-    // Créez la carte et définissez-la dans la variable map
-    const newMap = L.map("map").setView([45.75, 4.83], 13);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(newMap);
-
-    // Mettez à jour la variable map avec la nouvelle carte
-    setMap(newMap);
-
-    return () => {
-      // Supprimez la carte lorsque le composant est démonté
-      newMap.remove();
-    };
+    if (!mapRef.current) {
+      // Créez la carte uniquement si elle n'existe pas déjà.
+      const map = L.map("map").setView([45.75, 4.85], 16);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+      mapRef.current = map; // Enregistrez la carte dans la référence.
+    }
   }, []);
 
   const [events, setEvents] = useState(null);
@@ -43,22 +36,6 @@ const AroundWorld = () => {
       setIsLoading(false);
     })();
   }, []);
-
-  useEffect(() => {
-    const markerIcon = L.icon({
-      iconUrl: require("leaflet/dist/images/marker-icon.png"),
-      iconSize: [25, 41],
-    });
-    // Ajoutez les marqueurs à la carte en utilisant la variable map
-    if (map && events) {
-      events.forEach((event, index) => {
-        L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
-          .addTo(map)
-          .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
-          .openPopup();
-      });
-    }
-  }, [map, events]);
 
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
