@@ -12,6 +12,8 @@ async function initializeEvent() {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in euismod turpis. Sed erat mauris, efficitur sit amet sem ac, dictum imperdiet magna. Integer dignissim suscipit ligula, a blandit purus finibus et. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque luctus semper nibh, placerat fermentum eros condimentum a. Cras pretium, metus eu blandit ultrices, lectus urna sodales nibh, at luctus neque lorem at erat. Donec erat ligula, tempor id tortor sit amet, venenatis porta urna.",
     eventAddress: "11 rue saint hippolyte, Lyon",
     eventType: "Loisir",
+    eventLat: 43.597373962402344,
+    eventLon: 2.2688302993774414,
     isFavorite: true,
   });
 }
@@ -34,6 +36,8 @@ async function createEvent(
   eventDescription,
   eventAddress,
   eventType,
+  eventLat,
+  eventLon,
   isFavorite
 ) {
   const EventRepository = await getEventRepository();
@@ -45,6 +49,8 @@ async function createEvent(
     eventDescription,
     eventAddress,
     eventType,
+    eventLat,
+    eventLon,
     isFavorite,
   });
   await EventRepository.save(newEvent);
@@ -60,6 +66,8 @@ async function updateEvent(
   eventDescription,
   eventAddress,
   eventType,
+  eventLat,
+  eventLon,
   isFavorite
 ) {
   const EventRepository = await getEventRepository();
@@ -76,6 +84,8 @@ async function updateEvent(
     eventDescription,
     eventAddress,
     eventType,
+    eventLat,
+    eventLon,
     isFavorite,
   });
 }
