@@ -41,10 +41,10 @@ const HomePage = () => {
             <p>Loading...</p>
           ) : (
             events.map((event, index) => (
-              <Link to={`/${event.title}`} key={index}>
+              <Link to={`/${event.eventTitle}`} key={index}>
                 <CardEvent
                   eventTitle={event.eventTitle}
-                  eventDate={event.eventAdress}
+                  eventDate={event.eventDate}
                 />
               </Link>
             ))
