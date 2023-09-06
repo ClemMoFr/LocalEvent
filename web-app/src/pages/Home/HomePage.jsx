@@ -41,10 +41,14 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    const markerIcon = L.icon({
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      iconSize: [25, 41],
+    });
     // Ajoutez les marqueurs à la carte en utilisant la variable map
     if (map && events) {
       events.forEach((event, index) => {
-        L.marker([event.eventLat, event.eventLon])
+        L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
           .addTo(map)
           .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
           .openPopup();
