@@ -26,6 +26,8 @@ const post = async (req, res) => {
     eventDescription,
     eventAddress,
     eventType,
+    eventLat,
+    eventLon,
     isFavorite,
   } = req.body;
   if (!eventTitle) {
@@ -44,6 +46,10 @@ const post = async (req, res) => {
     res.status(400).json({ error: "L'adresse de l'événement est manquante" });
   } else if (!eventType) {
     res.status(400).json({ error: "Le type de l'événement est manquant" });
+  } else if (!eventLat) {
+    res.status(400).json({ error: "La latitude de l'événement est manquante" });
+  } else if (!eventLon) {
+    res.status(400).json({ error: "La longitude de l'événement est manquant" });
   } else {
     const newEvent = await createEvent(
       eventTitle,
@@ -53,6 +59,8 @@ const post = async (req, res) => {
       eventDescription,
       eventAddress,
       eventType,
+      eventLat,
+      eventLon,
       isFavorite
     );
     res.status(201).json(newEvent);
@@ -69,6 +77,8 @@ const put = async (req, res) => {
     eventDescription,
     eventAddress,
     eventType,
+    eventLat,
+    eventLon,
     isFavorite,
   } = req.body;
   {
@@ -82,6 +92,8 @@ const put = async (req, res) => {
         eventDescription,
         eventAddress,
         eventType,
+        eventLat,
+        eventLon,
         isFavorite
       );
       res.json(updatedEvent);
