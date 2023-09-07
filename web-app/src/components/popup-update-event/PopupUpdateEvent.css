@@ -171,12 +171,14 @@
   border-radius: 5px;
 }
 
-.customFileInput {
+.customFileInputUpdate {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   cursor: pointer;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .iconCameraPlus {

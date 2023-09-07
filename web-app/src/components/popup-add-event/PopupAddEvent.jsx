@@ -132,6 +132,10 @@ const PopupAddEvent = () => {
   console.log("Ceci est le state de la latitute" + eventLat);
   console.log("Ceci est le state de la longitude" + eventLon);
 
+  function reload() {
+    window.location.reload(true);
+  }
+
   async function createEvent(
     eventTitle,
     eventDate,
@@ -165,7 +169,7 @@ const PopupAddEvent = () => {
       if (!response.ok) {
         throw Error(await response.json());
       } else {
-        // reload();
+        reload();
       }
       return newEvent;
     } catch (error) {
@@ -276,10 +280,14 @@ const PopupAddEvent = () => {
               setEventType(e.target.value);
             }}
           >
-            <option value="choix1">Choix 1</option>
-            <option value="choix2">Choix 2</option>
-            <option value="choix3">Choix 3</option>
-            <option value="choix4">Choix 4</option>
+            <option value="spectable">Spectacle</option>
+            <option value="evenement-pro">Evénement professionnel</option>
+            <option value="manifestation">Manifestation</option>
+            <option value="foire">Foire</option>
+            <option value="vide-grenier">Vide grenier</option>
+            <option value="exposition">Exposition</option>
+            <option value="conference">Conférence</option>
+            <option value="tournoi-sportif">Tournoi sportif</option>
           </select>
         </label>
       </div>

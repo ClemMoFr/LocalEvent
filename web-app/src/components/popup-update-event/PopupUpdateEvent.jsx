@@ -19,6 +19,7 @@ const PopupUpdateEvent = ({
   eventAddressUpdated,
   eventLatUpdated,
   eventLonUpdated,
+  eventTypeUpdated,
 }) => {
   const [map, setMap] = useState(null);
 
@@ -95,8 +96,8 @@ const PopupUpdateEvent = ({
   const [selectedImage, setSelectedImage] = useState(null);
   const [eventImage, setEventImage] = useState(null);
 
-  console.log(selectedImage);
-  console.log(eventImage);
+  console.log("ceci est selectedImage" + "" + selectedImage);
+  console.log("ceci est eventImage" + "" + eventImage);
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
 
@@ -113,7 +114,7 @@ const PopupUpdateEvent = ({
         const reader = new FileReader();
 
         reader.onload = (e) => {
-          setEventImage(e.target.result);
+          setEventImageUpdatedData(e.target.result);
         };
 
         reader.readAsDataURL(compressedFile);
@@ -150,7 +151,7 @@ const PopupUpdateEvent = ({
     useState(eventLonUpdated);
 
   const [eventTypeUpdatedData, setEventTypeUpdatedData] =
-    useState(eventLonUpdated);
+    useState(eventTypeUpdated);
 
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -177,13 +178,17 @@ const PopupUpdateEvent = ({
     return updatedEvent;
   }
 
+  function reload() {
+    window.location.reload(true);
+  }
+
   return (
     <form
       className={"popupUpdateEventMainContainer"}
       onSubmit={async (e) => {
         e.preventDefault();
         await updateEvent(id);
-        // reload();
+        reload();
       }}
     >
       <label className="popupUpdateEventTitle">
@@ -227,16 +232,14 @@ const PopupUpdateEvent = ({
               style={{ display: "none" }}
               id="fileInput"
             />
-            <label htmlFor="fileInput" className="customFileInput">
+            <label htmlFor="fileInput" className="customFileInputUpdate">
               <BiSolidCameraPlus className="iconCameraPlus" />
             </label>
-            {eventImage && (
-              <img
-                className="imagePreview"
-                src={eventImage}
-                alt="Prévisualisation"
-              />
-            )}{" "}
+            <img
+              className="imagePreview"
+              src={eventImageUpdatedData}
+              alt="Prévisualisation"
+            />
           </div>
         </div>
       </div>
@@ -272,10 +275,14 @@ const PopupUpdateEvent = ({
               setEventTypeUpdatedData(e.target.value);
             }}
           >
-            <option value="choix1">Choix 1</option>
-            <option value="choix2">Choix 2</option>
-            <option value="choix3">Choix 3</option>
-            <option value="choix4">Choix 4</option>
+            <option value="spectable">Spectacle</option>
+            <option value="evenement-pro">Evénement professionnel</option>
+            <option value="manifestation">Manifestation</option>
+            <option value="foire">Foire</option>
+            <option value="vide-grenier">Vide grenier</option>
+            <option value="exposition">Exposition</option>
+            <option value="conference">Conférence</option>
+            <option value="tournoi-sportif">Tournoi sportif</option>
           </select>
         </label>
       </div>

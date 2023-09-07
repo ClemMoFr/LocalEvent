@@ -78,6 +78,7 @@ const PanelAdmin = () => {
           eventAddressUpdated={selectedEvent.eventAddress}
           eventLatUpdated={selectedEvent.eventLat}
           eventLonUpdated={selectedEvent.eventLon}
+          eventTypeUpdated={selectedEvent.eventType}
         />
       )}
     </div>
