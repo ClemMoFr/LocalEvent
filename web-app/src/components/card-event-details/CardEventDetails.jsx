@@ -11,8 +11,7 @@ import { useParams } from "react-router-dom";
 const CardEventDetails = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
-  console.log(isFavorite);
+  const [isFavorite, setIsFavorite] = useState(false); // Initialisez à false par défaut
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +31,13 @@ const CardEventDetails = () => {
 
   const { eventTitle } = useParams();
   const event = events.find((event) => event.eventTitle === eventTitle);
+
+  // Mettez à jour isFavorite lorsque event.isFavorite change
+  useEffect(() => {
+    if (event && event.isFavorite !== undefined) {
+      setIsFavorite(event.isFavorite);
+    }
+  }, [event]);
 
   useEffect(() => {
     if (event) {
@@ -58,6 +64,25 @@ const CardEventDetails = () => {
     }
   }, [event]);
 
+  const toggleFavorite = async () => {
+    try {
+      const updatedEvent = { ...event, isFavorite: !event.isFavorite };
+      const response = await fetch(`http://localhost:4000/event/${event.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedEvent),
+      });
+
+      if (response.ok) {
+        setIsFavorite(!isFavorite);
+      } else {
+        console.error("Erreur lors de la mise à jour de l'événement");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'événement :", error);
+    }
+  };
+
   return (
     <div className="cardEventDetailsMainContainer">
       {isLoading ? (
@@ -69,7 +94,7 @@ const CardEventDetails = () => {
           <div className="cardEventDetailsTop">
             <div
               className="cardEventCover"
-              style={{ backgroundImage: `url(${event.cover})` }}
+              style={{ backgroundImage: `url(${event.eventImage})` }}
             />
             <div className="cardEventInfos">
               <p className="cardEventTitle">{event.eventTitle}</p>
@@ -83,15 +108,15 @@ const CardEventDetails = () => {
                   Lien de l'événement
                 </a>
 
-                {isFavorite === true ? (
+                {isFavorite ? (
                   <AiFillHeart
                     className="cardEventFavoriteFull"
-                    onClick={() => setIsFavorite(false)}
+                    onClick={toggleFavorite}
                   />
                 ) : (
                   <AiOutlineHeart
                     className="cardEventFavoriteFull"
-                    onClick={() => setIsFavorite(true)}
+                    onClick={toggleFavorite}
                   />
                 )}
               </div>

@@ -35,9 +35,9 @@ const post = async (req, res) => {
   } else if (!eventTicketingTitle) {
     res.status(400).json({ error: "Le lien de la billeterie est manquant" });
   } else if (!eventImage) {
-    res.status(400).json({ error: "La date de l'événement est manquante" });
-  } else if (!eventDate) {
     res.status(400).json({ error: "L'image de l'événement est manquante" });
+  } else if (!eventDate) {
+    res.status(400).json({ error: "La date de l'événement est manquante" });
   } else if (!eventDescription) {
     res
       .status(400)

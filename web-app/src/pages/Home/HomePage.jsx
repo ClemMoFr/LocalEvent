@@ -41,15 +41,42 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    const markerIcon = L.icon({
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      iconSize: [25, 41],
+    });
     // Ajoutez les marqueurs à la carte en utilisant la variable map
     if (map && events) {
       events.forEach((event, index) => {
-        L.marker([event.eventLat, event.eventLon])
+        L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
           .addTo(map)
           .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
           .openPopup();
       });
     }
+  }, [map, events]);
+
+  const [eventsToDisplay, setEventsToDisplay] = useState(null);
+
+  const updateEventsToDisplay = () => {
+    if (map && events) {
+      const bounds = map.getBounds();
+      const filteredEvents = events.filter((event) => {
+        const eventLatLng = L.latLng(event.eventLat, event.eventLon);
+        return bounds.contains(eventLatLng);
+      });
+      setEventsToDisplay(filteredEvents);
+    }
+  };
+
+  useEffect(() => {
+    if (map) {
+      map.on("moveend", updateEventsToDisplay);
+    }
+  }, [map, events]);
+
+  useEffect(() => {
+    updateEventsToDisplay();
   }, [map, events]);
 
   return (
@@ -58,17 +85,18 @@ const HomePage = () => {
       <div className="homePageEventContainer">
         <p>Autour de moi</p>
         <div className="homePageCardEvent">
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : (
-            events.map((event, index) => (
+          {eventsToDisplay ? (
+            eventsToDisplay.map((event, index) => (
               <Link to={`/${event.eventTitle}`} key={index}>
                 <CardEvent
                   eventTitle={event.eventTitle}
                   eventDate={event.eventDate}
+                  eventImage={event.eventImage}
                 />
               </Link>
             ))
+          ) : (
+            <p>Aucun événements à afficher</p>
           )}
         </div>
       </div>

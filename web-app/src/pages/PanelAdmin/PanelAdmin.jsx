@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import "./PanelAdmin.css";
 
-import { events } from "../../config/constant";
 import { Link } from "react-router-dom";
 import CardEvent from "../../components/card-event/CardEvent";
 import PopupAddEvent from "../../components/popup-add-event/PopupAddEvent";
@@ -17,6 +16,18 @@ const PanelAdmin = () => {
     }
   }, [isMapLoaded]);
 
+  const [events, setEvents] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("http://localhost:4000/event");
+      const fetchedEvent = await response.json();
+      setEvents(fetchedEvent);
+      setIsLoading(false);
+    })();
+  }, []);
+
   return (
     <div className="panelAdminMainContainer">
       <p className="panelAdminTitle">Gérer vos événements</p>
@@ -27,15 +38,19 @@ const PanelAdmin = () => {
         Ajouter un événement
       </button>
       <div className="panelAdminCardEvent">
-        {events.map((event, index) => (
-          <Link to={`/${event.title}`} key={index}>
-            <CardEvent
-              eventTitle={event.title}
-              eventDate={event.dates}
-              eventImage={event.cover}
-            />
-          </Link>
-        ))}
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          events.map((event, index) => (
+            <Link to={`/${event.eventTitle}`} key={index}>
+              <CardEvent
+                eventTitle={event.eventTitle}
+                eventDate={event.eventDate}
+                eventImage={event.eventImage}
+              />
+            </Link>
+          ))
+        )}
       </div>
       {isMapLoaded && <PopupAddEvent />}
     </div>
