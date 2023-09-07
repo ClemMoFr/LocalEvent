@@ -130,6 +130,7 @@ const AroundWorld = () => {
               <CardEvent
                 eventTitle={event.eventTitle}
                 eventDate={event.eventDate}
+                eventImage={event.eventImage}
               />
             </Link>
           ))

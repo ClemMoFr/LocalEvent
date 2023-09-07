@@ -11,6 +11,8 @@ const PopupAddEvent = () => {
   const [map, setMap] = useState(null);
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState("");
+
+  console.log(coordinates);
   const [marker, setMarker] = useState(null);
   const markerIcon = L.icon({
     iconUrl: require("leaflet/dist/images/marker-icon.png"),
@@ -52,6 +54,8 @@ const PopupAddEvent = () => {
         setCoordinates(
           `Latitude: ${response.data.lat}, Longitude: ${response.data.lon}`
         );
+        setEventLat(response.data.lat);
+        setEventLon(response.data.lon);
 
         if (map) {
           map.setView([response.data.lat, response.data.lon], 20, {
@@ -77,6 +81,10 @@ const PopupAddEvent = () => {
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [eventImage, setEventImage] = useState(null);
+
+  console.log(selectedImage);
+  console.log(eventImage);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -85,32 +93,127 @@ const PopupAddEvent = () => {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        setSelectedImage(e.target.result);
+        setEventImage(e.target.result);
       };
 
       reader.readAsDataURL(file);
     }
   };
 
+  const [eventTitle, setEventTitle] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [eventTicketingTitle, setEventTicketingTitle] = useState("");
+
+  const [eventDescription, setEventDescription] = useState("");
+  // const [eventAddress, setEventAddress] = useState("");
+  const [eventLat, setEventLat] = useState("");
+  const [eventLon, setEventLon] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  console.log("Titre de l'événement" + eventTitle);
+  console.log("Date de l'événement" + eventDate);
+  console.log("Lien de l'événement" + eventTicketingTitle);
+  console.log("Image de l'événement" + eventImage);
+
+  console.log("Ceci est le state de la latitute" + eventLat);
+  console.log("Ceci est le state de la longitude" + eventLon);
+
+  async function createEvent(
+    eventTitle,
+    eventDate,
+    eventTicketingTitle,
+    eventImage,
+    eventDescription,
+    eventAddress,
+    eventType,
+    eventLat,
+    eventLon,
+    isFavorite
+  ) {
+    try {
+      const response = await fetch("http://localhost:4000/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          eventTitle,
+          eventDate,
+          eventTicketingTitle,
+          eventImage,
+          eventDescription,
+          eventAddress,
+          eventType,
+          eventLat,
+          eventLon,
+          isFavorite,
+        }),
+      });
+      const newEvent = await response.json();
+      if (!response.ok) {
+        throw Error(await response.json());
+      } else {
+        // reload();
+      }
+      return newEvent;
+    } catch (error) {
+      throw Error("Oups ! Un des champs est manquant ou mal renseigné");
+    }
+  }
+
   return (
-    <form className={"popupAddEventMainContainer"}>
+    <form
+      className={"popupAddEventMainContainer"}
+      onSubmit={async (e) => {
+        e.preventDefault();
+        try {
+          await createEvent(
+            eventTitle,
+            eventDate,
+            eventTicketingTitle,
+            eventImage,
+            eventDescription,
+            address,
+            eventType,
+            eventLat,
+            eventLon,
+            isFavorite
+          );
+        } catch (error) {}
+      }}
+    >
       <label className="popupAddEventTitle">
         <p>nom de l'événement</p>
-        <input></input>
+        <input
+          value={eventTitle}
+          onChange={(e) => {
+            setEventTitle(e.target.value);
+          }}
+        ></input>
       </label>
       <div className="popupAddEventTopBlock">
         <div className="left">
           <label>
             <p>date</p>
-            <input></input>
+            <input
+              value={eventDate}
+              onChange={(e) => {
+                setEventDate(e.target.value);
+              }}
+            ></input>
           </label>
           <label>
             <p>lien billeterie</p>
-            <input></input>
+            <input
+              value={eventTicketingTitle}
+              onChange={(e) => {
+                setEventTicketingTitle(e.target.value);
+              }}
+            ></input>
           </label>
         </div>
         <div className="right">
           <p>image</p>
+
           <div>
             <input
               type="file"
@@ -122,19 +225,24 @@ const PopupAddEvent = () => {
             <label htmlFor="fileInput" className="customFileInput">
               <BiSolidCameraPlus className="iconCameraPlus" />
             </label>
-            {selectedImage && (
+            {eventImage && (
               <img
                 className="imagePreview"
-                src={selectedImage}
+                src={eventImage}
                 alt="Prévisualisation"
               />
-            )}
+            )}{" "}
           </div>
         </div>
       </div>
       <label className="popupAddEventDescriptionBlock">
         <p>description</p>
-        <textarea></textarea>
+        <textarea
+          value={eventDescription}
+          onChange={(e) => {
+            setEventDescription(e.target.value);
+          }}
+        ></textarea>
       </label>
       <div className="popupAddEventBottomBlock">
         <label>
@@ -148,7 +256,13 @@ const PopupAddEvent = () => {
         </label>
         <label>
           <p>type</p>
-          <select id="choix">
+          <select
+            id="choix"
+            value={eventType}
+            onChange={(e) => {
+              setEventType(e.target.value);
+            }}
+          >
             <option value="choix1">Choix 1</option>
             <option value="choix2">Choix 2</option>
             <option value="choix3">Choix 3</option>
@@ -157,7 +271,9 @@ const PopupAddEvent = () => {
         </label>
       </div>
       <div id="map" className="leaflet-map-popup-add-event"></div>
-      <button className="popupAddEventBtnAddEvent">Ajouter l'événement</button>
+      <button className="popupAddEventBtnAddEvent" type="submit">
+        Ajouter l'événement
+      </button>
     </form>
   );
 };
