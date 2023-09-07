@@ -2,19 +2,28 @@ import React, { useEffect, useState } from "react";
 
 import "./PanelAdmin.css";
 
-import { Link } from "react-router-dom";
 import CardEvent from "../../components/card-event/CardEvent";
 import PopupAddEvent from "../../components/popup-add-event/PopupAddEvent";
+import PopupUpdateEvent from "../../components/popup-update-event/PopupUpdateEvent";
 
 const PanelAdmin = () => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isMapLoadedUpdate, setIsMapLoadedUpdate] = useState(false);
   const [statePopupAddEvent, setStatePopupAddEvent] = useState(false);
+  const [statePopupUpdateEvent, setStatePopupUpdateEvent] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     if (isMapLoaded) {
       setStatePopupAddEvent(true);
     }
   }, [isMapLoaded]);
+
+  useEffect(() => {
+    if (isMapLoadedUpdate) {
+      setStatePopupUpdateEvent(true);
+    }
+  }, [isMapLoadedUpdate]);
 
   const [events, setEvents] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,17 +51,35 @@ const PanelAdmin = () => {
           <p>Loading...</p>
         ) : (
           events.map((event, index) => (
-            <Link to={`/${event.eventTitle}`} key={index}>
+            <div
+              onClick={() => {
+                setSelectedEvent(event);
+                setIsMapLoadedUpdate(true);
+              }}
+            >
               <CardEvent
                 eventTitle={event.eventTitle}
                 eventDate={event.eventDate}
                 eventImage={event.eventImage}
               />
-            </Link>
+            </div>
           ))
         )}
       </div>
       {isMapLoaded && <PopupAddEvent />}
+      {isMapLoadedUpdate && (
+        <PopupUpdateEvent
+          id={selectedEvent.id}
+          eventTitleUpdated={selectedEvent.eventTitle}
+          eventDateUpdated={selectedEvent.eventDate}
+          eventTicketingTitleUpdated={selectedEvent.eventTicketingTitle}
+          eventImageUpdated={selectedEvent.eventImage}
+          eventDescriptionUpdated={selectedEvent.eventDescription}
+          eventAddressUpdated={selectedEvent.eventAddress}
+          eventLatUpdated={selectedEvent.eventLat}
+          eventLonUpdated={selectedEvent.eventLon}
+        />
+      )}
     </div>
   );
 };
