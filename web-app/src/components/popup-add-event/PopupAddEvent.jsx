@@ -3,6 +3,8 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { BiSolidCameraPlus } from "react-icons/bi";
 
+import imageCompression from "browser-image-compression";
+
 import axios from "axios";
 
 import "./PopupAddEvent.css";
@@ -85,18 +87,29 @@ const PopupAddEvent = () => {
 
   console.log(selectedImage);
   console.log(eventImage);
-
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
 
     if (file) {
-      const reader = new FileReader();
+      try {
+        const options = {
+          maxSizeMB: 0.5, // Définissez la taille maximale souhaitée en Mo
+          maxWidthOrHeight: 150, // Définissez la largeur ou la hauteur maximale souhaitée
+          useWebWorker: true,
+        };
 
-      reader.onload = (e) => {
-        setEventImage(e.target.result);
-      };
+        const compressedFile = await imageCompression(file, options);
 
-      reader.readAsDataURL(file);
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          setEventImage(e.target.result);
+        };
+
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error("Erreur lors de la compression de l'image :", error);
+      }
     }
   };
 
