@@ -94,7 +94,7 @@ const CardEventDetails = () => {
           <div className="cardEventDetailsTop">
             <div
               className="cardEventCover"
-              style={{ backgroundImage: `url(${event.cover})` }}
+              style={{ backgroundImage: `url(${event.eventImage})` }}
             />
             <div className="cardEventInfos">
               <p className="cardEventTitle">{event.eventTitle}</p>

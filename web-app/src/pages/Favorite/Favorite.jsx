@@ -41,6 +41,7 @@ const Favorite = () => {
               <CardEvent
                 eventTitle={event.eventTitle}
                 eventDate={event.eventDate}
+                eventImage={event.eventImage}
               />
             </Link>
           ))

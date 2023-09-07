@@ -91,11 +91,12 @@ const HomePage = () => {
                 <CardEvent
                   eventTitle={event.eventTitle}
                   eventDate={event.eventDate}
+                  eventImage={event.eventImage}
                 />
               </Link>
             ))
           ) : (
-            <p>No events to display</p>
+            <p>Aucun événements à afficher</p>
           )}
         </div>
       </div>
