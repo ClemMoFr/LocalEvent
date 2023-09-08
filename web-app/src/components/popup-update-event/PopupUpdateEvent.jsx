@@ -178,6 +178,27 @@ const PopupUpdateEvent = ({
     return updatedEvent;
   }
 
+  const [popupDelete, setPopupDelete] = useState(false);
+
+  function deleteEvent(id) {
+    const response = fetch(`http://localhost:4000/event/${id}`, {
+      method: "DELETE",
+    }).then((result) => {
+      result.json().then(response);
+      reload();
+    });
+  }
+
+  function popupDeleteOpen(e) {
+    e.preventDefault();
+    setPopupDelete(true);
+  }
+
+  function popupDeleteClose(e) {
+    e.preventDefault();
+    setPopupDelete(false);
+  }
+
   function reload() {
     window.location.reload(true);
   }
@@ -291,10 +312,26 @@ const PopupUpdateEvent = ({
         <button className="popupUpdateEventButtonModify" type="submit">
           Modifier
         </button>
-        <button className="popupUpdateEventButtonDelete" type="submit">
+        <button
+          className="popupUpdateEventButtonDelete"
+          onClick={(e) => popupDeleteOpen(e)}
+        >
           Supprimer
         </button>
       </div>
+      {popupDelete && (
+        <div className="popupDelete">
+          <div className="popupDeleteContainer">
+            <p>Etes vous sûr de la suppression ?</p>
+            <p>Vous êtes sur le point de supprimer </p>
+            <p>{eventTitleUpdated} </p>
+            <div className="popupDeleteButtonContainer">
+              <button onClick={(e) => popupDeleteClose(e)}>Retour</button>
+              <button onClick={() => deleteEvent(id)}>Supprimer</button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 };

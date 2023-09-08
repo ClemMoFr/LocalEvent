@@ -201,3 +201,59 @@
   border: 2px solid #72a6ff !important;
   color: #72a6ff !important;
 }
+
+.popupDelete {
+  width: 100%;
+  height: 100vh;
+  background: rgba(139, 138, 138, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popupDeleteContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  background-color: #fcfeff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.popupDeleteContainer p:nth-child(1) {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.popupDeleteContainer p:nth-child(3) {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.popupDeleteButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.popupDeleteButtonContainer button {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.popupDeleteButtonContainer button:nth-child(2) {
+  background-color: #fcfeff;
+  border: 3px solid #71a6ff;
+  color: #71a6ff;
+}
