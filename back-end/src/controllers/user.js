@@ -26,18 +26,13 @@ const getById = async (req, res) => {
 };
 
 const post = async (req, res) => {
-  const { userName, userEmail, userPassword, userConfirmPassword, userRole } =
-    req.body;
+  const { userName, userEmail, userPassword, userRole } = req.body;
   if (!userName) {
     res.status(400).json({ error: "Le nom de l'utilisateur est manquant" });
   } else if (!userEmail) {
     res.status(400).json({ error: "L'email de l'utilisateur est manquant" });
   } else if (!userPassword) {
     res.status(400).json({ error: "Le mot de passe" });
-  } else if (!userConfirmPassword) {
-    res
-      .status(400)
-      .json({ error: "La confirmation de mot de passe est manquante" });
   } else if (!userRole) {
     res.status(400).json({ error: "Le role" });
   } else {
@@ -45,7 +40,6 @@ const post = async (req, res) => {
       userName,
       userEmail,
       userPassword,
-      userConfirmPassword,
       userRole
     );
     res.status(201).json(newUser);
@@ -54,8 +48,7 @@ const post = async (req, res) => {
 
 const put = async (req, res) => {
   const { id } = req.params;
-  const { userName, userEmail, userPassword, userConfirmPassword, userRole } =
-    req.body;
+  const { userName, userEmail, userPassword, userRole } = req.body;
   {
     try {
       const updatedUser = await updateUser(
@@ -63,7 +56,7 @@ const put = async (req, res) => {
         userName,
         userEmail,
         userPassword,
-        userConfirmPassword,
+
         userRole
       );
       res.json(updatedUser);

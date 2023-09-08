@@ -17,9 +17,6 @@ module.exports = new EntitySchema({
     userPassword: {
       type: "text",
     },
-    userConfirmPassword: {
-      type: "text",
-    },
     userRole: {
       type: "text",
     },

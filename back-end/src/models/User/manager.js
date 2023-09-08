@@ -1,4 +1,5 @@
 const { getUserRepository } = require("../../database/utils");
+const bcrypt = require("bcrypt");
 
 async function initializeUser() {
   const UserRepository = await getUserRepository();
@@ -6,8 +7,7 @@ async function initializeUser() {
   await UserRepository.save({
     userName: "Mickaël",
     userEmail: "md@mail.com",
-    userPassword: "123",
-    userConfirmPassword: "123",
+    userPassword: await bcrypt.hash("123", 10),
     userRole: "Admin",
   });
 }
@@ -22,33 +22,20 @@ async function getUserById(id) {
   return UserRepository.findOne({ where: { id } });
 }
 
-async function createUser(
-  userName,
-  userEmail,
-  userPassword,
-  userConfirmPassword,
-  userRole
-) {
+async function createUser(userName, userEmail, userPassword, userRole) {
   const UserRepository = await getUserRepository();
+  const hashedPassword = await bcrypt.hash(userPassword, 10);
   const newUser = UserRepository.create({
     userName,
     userEmail,
-    userPassword,
-    userConfirmPassword,
+    userPassword: hashedPassword,
     userRole,
   });
   await UserRepository.save(newUser);
   return newUser;
 }
 
-async function updateUser(
-  id,
-  userName,
-  userEmail,
-  userPassword,
-  userConfirmPassword,
-  userRole
-) {
+async function updateUser(id, userName, userEmail, userPassword, userRole) {
   const UserRepository = await getUserRepository();
   const existingUser = await UserRepository.findOneBy({ id });
   if (!existingUser) {
@@ -59,7 +46,6 @@ async function updateUser(
     userName,
     userEmail,
     userPassword,
-    userConfirmPassword,
     userRole,
   });
 }
@@ -68,6 +54,10 @@ async function deleteUser(id) {
   const UserRepository = await getUserRepository();
   const existingUser = await UserRepository.findOneBy(id);
   return UserRepository.remove(existingUser);
+}
+
+async function verifyPassword(user, password) {
+  return bcrypt.compare(password, user.userPassword);
 }
 
 module.exports = {
