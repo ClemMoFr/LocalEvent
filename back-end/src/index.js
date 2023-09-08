@@ -6,6 +6,8 @@ const { initializeEvent } = require("./models/Event/manager");
 const userControllers = require("./controllers/user");
 const { initializeUser } = require("./models/User/manager");
 
+const authenticateUser = require("./middlewares/authenticateUser");
+
 const axios = require("axios");
 const app = express();
 const PORT = 4000;
@@ -31,18 +33,32 @@ app.delete(`${EVENT_PATH}/:id`, eventControllers.del);
 
 const USER_PATH = "/user";
 app.get(USER_PATH, userControllers.get);
-app.get(`${USER_PATH}/:id`, userControllers.getById);
+app.get(`${USER_PATH}/:id`, authenticateUser, userControllers.getById);
 app.post(USER_PATH, userControllers.post);
-app.put(`${USER_PATH}/:id`, userControllers.put);
-app.delete(`${USER_PATH}/:id`, userControllers.del);
+app.put(`${USER_PATH}/:id`, authenticateUser, userControllers.put);
+app.delete(`${USER_PATH}/:id`, authenticateUser, userControllers.del);
 
-app.post(`${USER_PATH}/:id/`, userControllers.addEventToUserController);
-app.get(`${USER_PATH}/:id${EVENT_PATH}`, userControllers.readEventFromUser);
-app.put(`${USER_PATH}${EVENT_PATH}/:id`, userControllers.updateEventFromUser);
+app.post(
+  `${USER_PATH}/:id/`,
+  authenticateUser,
+  userControllers.addEventToUserController
+);
+app.get(
+  `${USER_PATH}/:id${EVENT_PATH}`,
+  authenticateUser,
+  userControllers.readEventFromUser
+);
+app.put(
+  `${USER_PATH}${EVENT_PATH}/:id`,
+  authenticateUser,
+  userControllers.updateEventFromUser
+);
 app.delete(
   `${USER_PATH}${EVENT_PATH}/:id`,
   userControllers.deleteEventFromUser
 );
+
+app.post(`${USER_PATH}/:id/login`, userControllers.loginUser);
 
 app.get("/get-coordinates", async (req, res) => {
   const address = req.query.address;

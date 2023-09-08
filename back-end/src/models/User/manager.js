@@ -60,6 +60,11 @@ async function verifyPassword(user, password) {
   return bcrypt.compare(password, user.userPassword);
 }
 
+async function getUserByEmail(userEmail) {
+  const UserRepository = await getUserRepository();
+  return UserRepository.findOne({ where: { userEmail } });
+}
+
 module.exports = {
   initializeUser,
   getUser,
@@ -67,4 +72,6 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  verifyPassword,
+  getUserByEmail,
 };

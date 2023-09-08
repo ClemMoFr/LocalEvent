@@ -4,6 +4,8 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  verifyPassword,
+  getUserByEmail,
 } = require("../models/User/manager");
 
 const {
@@ -13,6 +15,8 @@ const {
   deleteEventById,
   deleteEventByUserId,
 } = require("../models/Event/manager");
+
+const jwt = require("jsonwebtoken");
 
 const get = async (req, res) => {
   const user = await getUser();
@@ -134,6 +138,31 @@ const deleteEventFromUserAll = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { userEmail, userPassword } = req.body;
+
+  // Recherchez l'utilisateur par son adresse e-mail
+  const user = await getUserByEmail(userEmail);
+
+  if (!user) {
+    return res.status(401).json({ error: "Utilisateur non trouvé" });
+  }
+
+  // Utilisez la fonction verifyPassword pour vérifier le mot de passe
+  const passwordMatch = await verifyPassword(user, userPassword);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ error: "Mot de passe incorrect" });
+  }
+
+  // Si le mot de passe correspond, vous pouvez générer un token JWT pour l'authentification de l'utilisateur
+  const token = jwt.sign({ userId: user.id }, "abc", {
+    expiresIn: "1h", // Durée de validité du token
+  });
+
+  res.status(200).json({ token });
+};
+
 module.exports = {
   get,
   getById,
@@ -144,4 +173,5 @@ module.exports = {
   readEventFromUser,
   updateEventFromUser,
   deleteEventFromUser,
+  loginUser,
 };
