@@ -287,9 +287,14 @@ const PopupUpdateEvent = ({
         </label>
       </div>
       <div id="map" className="leaflet-map-popup-update-event"></div>
-      <button className="popupUpdateEventBtnAddEvent" type="submit">
-        Modifier l'événement
-      </button>
+      <div className="popupUpdateEventButtonContainer">
+        <button className="popupUpdateEventButtonModify" type="submit">
+          Modifier
+        </button>
+        <button className="popupUpdateEventButtonDelete" type="submit">
+          Supprimer
+        </button>
+      </div>
     </form>
   );
 };

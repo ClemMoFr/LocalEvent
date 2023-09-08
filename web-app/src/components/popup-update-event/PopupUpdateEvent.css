@@ -185,3 +185,19 @@
   font-size: 3rem;
   color: #71a6ff;
 }
+
+.popupUpdateEventButtonContainer {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.popupUpdateEventButtonContainer button {
+  cursor: pointer;
+}
+
+.popupUpdateEventButtonDelete {
+  background-color: #fcfeff !important;
+  border: 2px solid #72a6ff !important;
+  color: #72a6ff !important;
+}
