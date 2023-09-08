@@ -1,0 +1,10 @@
+POST http://localhost:4000/user
+Content-Type: application/json
+
+ {  
+    "userName":"Bob",
+    "userEmail":"b@mail.com",
+    "userPassword":"345",
+    "userConfirmPassword":"345",
+    "userRole":"User"
+ }

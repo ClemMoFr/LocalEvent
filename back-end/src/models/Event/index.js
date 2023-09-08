@@ -39,4 +39,11 @@ module.exports = new EntitySchema({
       type: "boolean",
     },
   },
+  relations: {
+    user: {
+      target: "User",
+      type: "many-to-one",
+      inverseSide: "events",
+    },
+  },
 });

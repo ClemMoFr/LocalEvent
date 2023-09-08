@@ -3,6 +3,9 @@ const express = require("express");
 const eventControllers = require("./controllers/event");
 const { initializeEvent } = require("./models/Event/manager");
 
+const userControllers = require("./controllers/user");
+const { initializeUser } = require("./models/User/manager");
+
 const axios = require("axios");
 const app = express();
 const PORT = 4000;
@@ -25,6 +28,21 @@ app.get(`${EVENT_PATH}/:id`, eventControllers.getById);
 app.post(EVENT_PATH, eventControllers.post);
 app.put(`${EVENT_PATH}/:id`, eventControllers.put);
 app.delete(`${EVENT_PATH}/:id`, eventControllers.del);
+
+const USER_PATH = "/user";
+app.get(USER_PATH, userControllers.get);
+app.get(`${USER_PATH}/:id`, userControllers.getById);
+app.post(USER_PATH, userControllers.post);
+app.put(`${USER_PATH}/:id`, userControllers.put);
+app.delete(`${USER_PATH}/:id`, userControllers.del);
+
+app.post(`${USER_PATH}/:id/`, userControllers.addEventToUserController);
+app.get(`${USER_PATH}/:id${EVENT_PATH}`, userControllers.readEventFromUser);
+app.put(`${USER_PATH}${EVENT_PATH}/:id`, userControllers.updateEventFromUser);
+app.delete(
+  `${USER_PATH}${EVENT_PATH}/:id`,
+  userControllers.deleteEventFromUser
+);
 
 app.get("/get-coordinates", async (req, res) => {
   const address = req.query.address;
@@ -52,6 +70,7 @@ app.get("/get-coordinates", async (req, res) => {
 
 async function start() {
   await initializeEvent();
+  await initializeUser();
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} 👍`);
   });

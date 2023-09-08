@@ -1,0 +1,17 @@
+POST http://localhost:4000/user/89847b51-b6f5-4f4b-8ea7-819b7a3e336f/
+Content-Type: application/json
+
+ {  
+  "eventData":{
+   "eventTitle":"Super anniversaire",
+   "eventTicketingTitle":"https://www.youtube.com/",
+   "eventDate":"Du 6 juillet au 21 juillet",
+   "eventImage":"image de l'event",
+   "eventDescription":"ceci est la description",
+   "eventAddress":"9 rue de la charretière, Saint Genis Laval",
+   "eventType":"Soirée",
+   "eventLat": 43.597373962402344,
+   "eventLon": 2.2688302993774414,
+   "isFavorite": false
+  }
+ }

@@ -112,6 +112,71 @@ async function deleteEvent(id) {
   return EventRepository.remove(existingEvent);
 }
 
+// CRUD user to event
+
+async function addEventToUser(userId, eventData) {
+  const EventRepository = await getEventRepository();
+  const Event = EventRepository.create({
+    ...eventData,
+    user: { id: userId },
+  });
+  await EventRepository.save(Event);
+  return Event;
+}
+
+async function readEventByUserId(userId) {
+  const EventRepository = await getEventRepository();
+  return EventRepository.createQueryBuilder("events")
+    .innerJoin("events.user", "user")
+    .where("user.id = :id", { id: userId })
+    .getMany();
+}
+
+async function updateEventById(userId, updatedData) {
+  const EventRepository = await getEventRepository();
+  const existingEvent = await EventRepository.findOne({
+    where: { id: userId },
+  });
+  if (!existingEvent) {
+    throw Error("L'événement correspondant à cet ID n'existe pas");
+  }
+
+  await EventRepository.createQueryBuilder()
+    .update()
+    .set(updatedData)
+    .where("id = :id", { id: userId })
+    .execute();
+
+  const updatedEvent = await EventRepository.findOne({
+    where: { id: userId },
+  });
+  return updatedEvent;
+}
+
+async function deleteEventById(eventId) {
+  const EventRepository = await getEventRepository();
+  const existingEvent = await EventRepository.findOne({
+    where: { id: eventId },
+  });
+  if (!existingEvent) {
+    throw Error("L'événement correspondant à cet ID n'existe pas");
+  }
+  await EventRepository.remove(existingEvent);
+}
+
+async function deleteEventByUserId(userId) {
+  const EventRepository = await getEventRepository();
+  const Events = await EventRepository.find({
+    where: { user: { id: userId } },
+  });
+
+  if (Events.length === 0) {
+    throw Error("Aucun événement pour cet utilisateur.");
+  }
+
+  await EventRepository.remove(Events);
+}
+
 module.exports = {
   initializeEvent,
   getEvent,
@@ -119,4 +184,9 @@ module.exports = {
   createEvent,
   updateEvent,
   deleteEvent,
+  addEventToUser,
+  readEventByUserId,
+  updateEventById,
+  deleteEventById,
+  deleteEventByUserId,
 };
