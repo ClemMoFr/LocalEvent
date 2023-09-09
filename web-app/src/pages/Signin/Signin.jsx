@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import "./Signup.css";
+import "./Signin.css";
 
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
-import { useNavigate } from "react-router-dom";
-
-const Signup = () => {
-  const navigate = useNavigate();
-
+const Signin = () => {
   const [userName, setUserName] = useState("");
   const [userSurname, setUserSurname] = useState("");
   const [userMail, setUserMail] = useState("");
@@ -64,7 +60,7 @@ const Signup = () => {
       if (!response.ok) {
         throw Error(await response.json());
       } else {
-        navigate("/connexion");
+        // reload();
       }
       return newUser;
     } catch (error) {
@@ -73,30 +69,19 @@ const Signup = () => {
   }
 
   return (
-    <div className="signUpMainContainer">
-      <div className="signUpLogo">LocalEvent.</div>
+    <div className="signInMainContainer">
+      <div className="signInLogo">LocalEvent.</div>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
           try {
             await createUser(userName, userMail, password, userRole);
+            alert(
+              `l'utilisateur à été créer avec ${userName},${userMail},${password},${userRole} `
+            );
           } catch (error) {}
         }}
       >
-        <label>
-          <p>votre prénom</p>
-          <input
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          ></input>
-        </label>
-        <label>
-          <p>votre nom</p>
-          <input
-            value={userSurname}
-            onChange={(e) => setUserSurname(e.target.value)}
-          ></input>
-        </label>
         <label>
           <p>votre adresse mail</p>
           <input
@@ -119,28 +104,12 @@ const Signup = () => {
             )}
           </div>
         </label>
-        <label style={{ position: "relative" }}>
-          <p>confirmation de mot de passe</p>
-          <input
-            type={showConfirmPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-          ></input>
-          {error && <p className="errorText">{error}</p>}
-          <div className="containerEye" onClick={toggleShowConfirmPassword}>
-            {showConfirmPassword ? (
-              <BsFillEyeFill className="eyeOpen" />
-            ) : (
-              <BsFillEyeSlashFill className="eyeClose" />
-            )}
-          </div>
-        </label>
         <button className="settingsButton" type="submit">
-          S'enregistrer
+          Connexion
         </button>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Signin;

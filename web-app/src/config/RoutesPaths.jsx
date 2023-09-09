@@ -7,6 +7,7 @@ import CardEventDetails from "../components/card-event-details/CardEventDetails"
 import PanelAdmin from "../pages/PanelAdmin/PanelAdmin";
 import Settings from "../pages/Settings/Settings";
 import Signup from "../pages/Signup/Signup";
+import Signin from "../pages/Signin/Signin";
 
 const RoutesPaths = () => {
   return (
@@ -18,6 +19,7 @@ const RoutesPaths = () => {
       <Route path="/panel-admin" element={<PanelAdmin />}></Route>
       <Route path="/paramètres" element={<Settings />}></Route>
       <Route path="/inscription" element={<Signup />}></Route>
+      <Route path="/connexion" element={<Signin />}></Route>
     </Routes>
   );
 };

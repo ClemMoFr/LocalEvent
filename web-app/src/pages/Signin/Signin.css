@@ -1,8 +1,8 @@
-.signUpMainContainer {
+.signInMainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 30px;
   position: absolute;
   top: 0;
@@ -13,25 +13,25 @@
   z-index: 2;
 }
 
-.signUpTitle {
+.signInTitle {
   font-weight: medium;
   font-size: 1.2rem;
 }
 
-.signUpLogo {
+.signInLogo {
   font-size: 2rem;
   font-weight: 700;
   color: #71a6ff;
 }
 
-.signUpMainContainer label {
+.signInMainContainer label {
   display: flex;
   flex-direction: column;
   width: 80%;
   margin: 15px auto;
 }
 
-.signUpMainContainer input {
+.signInMainContainer input {
   height: 50px;
   background-color: #e7f0ff;
   border-radius: 5px;
@@ -41,7 +41,11 @@
   padding-left: 10px;
 }
 
-.signUpMainContainer form {
+.signInMainContainer form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
