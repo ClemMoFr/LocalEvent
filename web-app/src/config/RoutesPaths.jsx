@@ -6,7 +6,7 @@ import AroundWorld from "../pages/AroundWorld/AroundWorld";
 import CardEventDetails from "../components/card-event-details/CardEventDetails";
 import PanelAdmin from "../pages/PanelAdmin/PanelAdmin";
 import Settings from "../pages/Settings/Settings";
-import Signin from "../pages/Signin/Signin";
+import Signup from "../pages/Signup/Signup";
 
 const RoutesPaths = () => {
   return (
@@ -17,7 +17,7 @@ const RoutesPaths = () => {
       <Route path="/:eventTitle" element={<CardEventDetails />}></Route>
       <Route path="/panel-admin" element={<PanelAdmin />}></Route>
       <Route path="/paramètres" element={<Settings />}></Route>
-      <Route path="/inscription" element={<Signin />}></Route>
+      <Route path="/inscription" element={<Signup />}></Route>
     </Routes>
   );
 };

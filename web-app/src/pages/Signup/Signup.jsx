@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./Signin.css";
+import "./Signup.css";
 
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
-const Signin = () => {
+const Signup = () => {
   const [userName, setUserName] = useState("");
   const [userSurname, setUserSurname] = useState("");
   const [userMail, setUserMail] = useState("");
@@ -69,8 +69,8 @@ const Signin = () => {
   }
 
   return (
-    <div className="signInMainContainer">
-      <div className="signInLogo">LocalEvent.</div>
+    <div className="signUpMainContainer">
+      <div className="signUpLogo">LocalEvent.</div>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -142,4 +142,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
