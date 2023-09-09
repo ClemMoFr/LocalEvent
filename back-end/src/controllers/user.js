@@ -143,6 +143,8 @@ const loginUser = async (req, res) => {
 
   const user = await getUserByEmail(userEmail);
 
+  console.log(user);
+
   if (!user) {
     return res.status(401).json({ error: "Utilisateur non trouvé" });
   }
@@ -157,7 +159,10 @@ const loginUser = async (req, res) => {
     expiresIn: "72h",
   });
 
-  res.status(200).json({ token });
+  // Vérifiez si l'utilisateur a des événements associés
+  const userEvents = await readEventByUserId(user.id);
+
+  res.status(200).json({ token, userEvents });
 };
 
 module.exports = {

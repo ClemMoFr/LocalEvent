@@ -58,7 +58,7 @@ app.delete(
   userControllers.deleteEventFromUser
 );
 
-app.post(`${USER_PATH}/:id/login`, userControllers.loginUser);
+app.post("/login", userControllers.loginUser);
 
 app.get("/get-coordinates", async (req, res) => {
   const address = req.query.address;
@@ -86,7 +86,7 @@ app.get("/get-coordinates", async (req, res) => {
 
 async function start() {
   await initializeEvent();
-  await initializeUser();
+  // await initializeUser();
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} 👍`);
   });

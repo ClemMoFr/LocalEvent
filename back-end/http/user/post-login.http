@@ -1,7 +1,7 @@
-POST http://localhost:4000/user/51800889-82da-4986-b58c-5df32c3762be/login
+POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "userEmail": "md@mail.com",
-  "userPassword": "123"
+  "userEmail": "jp@mail.com",
+  "userPassword": "azerty"
 }

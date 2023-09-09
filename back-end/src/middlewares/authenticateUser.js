@@ -3,6 +3,11 @@ const { getUserById } = require("../models/User/manager");
 
 const authenticateUser = async (req, res, next) => {
   try {
+    // Excluez la vérification du jeton JWT pour la route 'user/login'
+    if (req.path === "/login" && req.method === "POST") {
+      return next(); // Passez à la prochaine middleware/route sans vérification
+    }
+
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, "abc");
 
