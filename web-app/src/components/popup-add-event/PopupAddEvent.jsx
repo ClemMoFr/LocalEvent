@@ -152,6 +152,7 @@ const PopupAddEvent = () => {
       const response = await fetch("http://localhost:4000/event", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        // Authorization: `Bearer ${jwtToken}`,
         body: JSON.stringify({
           eventTitle,
           eventDate,
