@@ -82,25 +82,27 @@ const Navbar = ({
           </div>
         </Link>
 
-        <Link to={"/panel-admin"}>
-          <div
-            className={
-              stateNavbar === "panel"
-                ? "navbarIconContainerOn"
-                : "navbarIconContainerOff"
-            }
-            onClick={handleNavPanel}
-          >
-            <VscSettings className="navbarIcon" />
-            <p
+        {jwtToken && (
+          <Link to={"/panel-admin"}>
+            <div
               className={
-                stateNavbar === "panel" ? "navbarIconOn" : "navbarIconOff"
+                stateNavbar === "panel"
+                  ? "navbarIconContainerOn"
+                  : "navbarIconContainerOff"
               }
+              onClick={handleNavPanel}
             >
-              panel admin
-            </p>
-          </div>
-        </Link>
+              <VscSettings className="navbarIcon" />
+              <p
+                className={
+                  stateNavbar === "panel" ? "navbarIconOn" : "navbarIconOff"
+                }
+              >
+                panel admin
+              </p>
+            </div>
+          </Link>
+        )}
 
         <Link to={"/paramètres"}>
           <div
