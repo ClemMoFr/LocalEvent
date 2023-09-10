@@ -8,12 +8,16 @@ import PanelAdmin from "../pages/PanelAdmin/PanelAdmin";
 import Settings from "../pages/Settings/Settings";
 import Signup from "../pages/Signup/Signup";
 import Signin from "../pages/Signin/Signin";
+import ProtectedRoutes from "../components/protected-routes/ProtectedRoutes";
 
 const RoutesPaths = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />}></Route>
-      <Route path="/favoris" element={<Favorite />}></Route>
+      <Route
+        path="/favoris"
+        element={<ProtectedRoutes element={<Favorite />} />}
+      />
       <Route path="/autour-du-monde" element={<AroundWorld />}></Route>
       <Route path="/:eventTitle" element={<CardEventDetails />}></Route>
       <Route path="/panel-admin" element={<PanelAdmin />}></Route>
