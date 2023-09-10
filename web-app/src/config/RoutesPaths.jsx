@@ -20,7 +20,10 @@ const RoutesPaths = () => {
       />
       <Route path="/autour-du-monde" element={<AroundWorld />}></Route>
       <Route path="/:eventTitle" element={<CardEventDetails />}></Route>
-      <Route path="/panel-admin" element={<PanelAdmin />}></Route>
+      <Route
+        path="/panel-admin"
+        element={<ProtectedRoutes element={<PanelAdmin />} />}
+      />
       <Route path="/paramètres" element={<Settings />}></Route>
       <Route path="/inscription" element={<Signup />}></Route>
       <Route path="/connexion" element={<Signin />}></Route>
