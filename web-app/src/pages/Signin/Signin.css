@@ -78,3 +78,11 @@
   font-size: 1.4rem;
   color: #71a6ff;
 }
+
+.signInMainContainer .subtitle {
+  margin-top: 40px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #252525;
+}

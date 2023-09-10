@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Pour gérer les redirections
 import "./Signin.css";
 
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+
 const Signin = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [jwtToken, setJwtToken] = useState(""); // État pour stocker le jeton JWT
   const navigate = useNavigate(); // Pour gérer les redirections
 
@@ -50,9 +53,16 @@ const Signin = () => {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="signInMainContainer">
       <div className="signInLogo">LocalEvent.</div>
+      <p className="subtitle">
+        Connectez-vous pour profitez pleinement de l'application !
+      </p>
       <form onSubmit={handleLoginSubmit}>
         <label>
           <p>Adresse email</p>
@@ -63,14 +73,21 @@ const Signin = () => {
             required
           />
         </label>
-        <label>
+        <label style={{ position: "relative" }}>
           <p>Mot de passe</p>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
             required
           />
+          <div className="containerEye" onClick={toggleShowPassword}>
+            {showPassword ? (
+              <BsFillEyeFill className="eyeOpen" />
+            ) : (
+              <BsFillEyeSlashFill className="eyeClose" />
+            )}
+          </div>
         </label>
         {loginError && <p className="errorText">{loginError}</p>}
         <button className="settingsButton" type="submit">
