@@ -31,10 +31,13 @@ const Settings = () => {
             <p>Editer le profil</p>
             <BsArrowRight />
           </button>
-          <p className="linkProVersion" onClick={() => upgradeProVersion(true)}>
+          <div
+            className="linkProVersion"
+            onClick={() => upgradeProVersion(true)}
+          >
             Envie d’essayer la version pro ?
             <div className="linkProVersionUnderline" />
-          </p>
+          </div>
           {statePopupModifyProfil && (
             <PopupModifySettings stateWave={stateWave} />
           )}

@@ -80,6 +80,30 @@ const del = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  // Vérifiez le jeton JWT
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: "Token non fourni" });
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, "abc"); // Remplacez "abc" par votre secret JWT
+    const userId = decodedToken.userId;
+
+    // Récupérez les informations de l'utilisateur à partir de la base de données
+    const user = await getUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(401).json({ error: "Token invalide" });
+  }
+};
+
 // CRUD entre l'utilisateur et l'événement
 
 const addEventToUserController = async (req, res) => {
@@ -176,4 +200,5 @@ module.exports = {
   updateEventFromUser,
   deleteEventFromUser,
   loginUser,
+  getUserInfo,
 };

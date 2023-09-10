@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
@@ -33,6 +33,7 @@ app.delete(`${EVENT_PATH}/:id`, eventControllers.del);
 
 const USER_PATH = "/user";
 app.get(USER_PATH, userControllers.get);
+app.get(`${USER_PATH}/infos`, userControllers.getUserInfo);
 app.get(`${USER_PATH}/:id`, authenticateUser, userControllers.getById);
 app.post(USER_PATH, userControllers.post);
 app.put(`${USER_PATH}/:id`, authenticateUser, userControllers.put);

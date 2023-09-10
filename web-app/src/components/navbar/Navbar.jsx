@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 
 import { AiFillHome, AiFillHeart } from "react-icons/ai";
@@ -16,6 +16,40 @@ const Navbar = ({
   handleNavSetting,
 }) => {
   const jwtToken = localStorage.getItem("jwtToken");
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null); // Définir null comme valeur initiale
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch("http://localhost:4000/user/infos", {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          setIsLoading(false);
+          // Définir userRole ici après avoir reçu les données de l'utilisateur
+          setUserRole(userData.userRole);
+        } else {
+        }
+      } catch (error) {}
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  console.log(userRole);
 
   return (
     <div className="navbar">
@@ -82,7 +116,7 @@ const Navbar = ({
           </div>
         </Link>
 
-        {jwtToken && (
+        {jwtToken && userRole === "administrateur" && (
           <Link to={"/panel-admin"}>
             <div
               className={
