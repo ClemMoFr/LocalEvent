@@ -9,11 +9,15 @@ const Signin = () => {
   const [jwtToken, setJwtToken] = useState(""); // État pour stocker le jeton JWT
   const navigate = useNavigate(); // Pour gérer les redirections
 
-  console.log("ceci est le token" + jwtToken);
+  function reload() {
+    window.location.reload(true);
+  }
+
   useEffect(() => {
     // Redirigez l'utilisateur vers une page après une connexion réussie
     if (jwtToken) {
       navigate("/"); // Vous devez avoir une route "/profile" définie dans votre application
+      reload();
     }
   }, [jwtToken, navigate]);
 

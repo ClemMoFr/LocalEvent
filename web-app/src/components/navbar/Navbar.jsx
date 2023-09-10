@@ -4,9 +4,7 @@ import "./Navbar.css";
 import { AiFillHome, AiFillHeart } from "react-icons/ai";
 import { IoEarth } from "react-icons/io5";
 import { VscSettings } from "react-icons/vsc";
-
 import { FaUser } from "react-icons/fa";
-
 import { Link } from "react-router-dom";
 
 const Navbar = ({
@@ -17,6 +15,8 @@ const Navbar = ({
   handleNavPanel,
   handleNavSetting,
 }) => {
+  const jwtToken = localStorage.getItem("jwtToken");
+
   return (
     <div className="navbar">
       <div className="iconContainer">
@@ -40,25 +40,27 @@ const Navbar = ({
           </div>
         </Link>
 
-        <Link to={"/favoris"}>
-          <div
-            className={
-              stateNavbar === "favorite"
-                ? "navbarIconContainerOn"
-                : "navbarIconContainerOff"
-            }
-            onClick={handleNavFavorite}
-          >
-            <AiFillHeart className="navbarIcon" />
-            <p
+        {jwtToken && (
+          <Link to={"/favoris"}>
+            <div
               className={
-                stateNavbar === "favorite" ? "navbarIconOn" : "navbarIconOff"
+                stateNavbar === "favorite"
+                  ? "navbarIconContainerOn"
+                  : "navbarIconContainerOff"
               }
+              onClick={handleNavFavorite}
             >
-              favoris
-            </p>
-          </div>
-        </Link>
+              <AiFillHeart className="navbarIcon" />
+              <p
+                className={
+                  stateNavbar === "favorite" ? "navbarIconOn" : "navbarIconOff"
+                }
+              >
+                favoris
+              </p>
+            </div>
+          </Link>
+        )}
 
         <Link to={"/autour-du-monde"}>
           <div
