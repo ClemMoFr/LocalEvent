@@ -9,7 +9,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
-  const [userSurname, setUserSurname] = useState("");
   const [userMail, setUserMail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -88,13 +87,6 @@ const Signup = () => {
           <input
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-          ></input>
-        </label>
-        <label>
-          <p>votre nom</p>
-          <input
-            value={userSurname}
-            onChange={(e) => setUserSurname(e.target.value)}
           ></input>
         </label>
         <label>

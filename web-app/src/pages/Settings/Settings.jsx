@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Settings.css";
 
@@ -10,7 +10,32 @@ import Signin from "../Signin/Signin";
 const Settings = () => {
   const [statePopupModifyProfil, setStatePopupModifyProfil] = useState(false);
   const [stateWave, setStateWave] = useState(false);
+  const [userRole, setUserRole] = useState(null);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch("http://localhost:4000/user/infos", {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUserRole(userData.userRole);
+        } else {
+        }
+      } catch (error) {}
+    };
+
+    fetchUserInfo();
+  }, []);
   function upgradeProVersion() {
     setStatePopupModifyProfil(true);
     setStateWave(true);
@@ -31,13 +56,18 @@ const Settings = () => {
             <p>Editer le profil</p>
             <BsArrowRight />
           </button>
-          <div
-            className="linkProVersion"
-            onClick={() => upgradeProVersion(true)}
-          >
-            Envie d’essayer la version pro ?
-            <div className="linkProVersionUnderline" />
-          </div>
+          {userRole === "utilisateur" ? (
+            <div
+              className="linkProVersion"
+              onClick={() => upgradeProVersion(true)}
+            >
+              Envie d’essayer la version pro ?
+              <div className="linkProVersionUnderline" />
+            </div>
+          ) : (
+            ""
+          )}
+
           {statePopupModifyProfil && (
             <PopupModifySettings stateWave={stateWave} />
           )}
