@@ -45,15 +45,21 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
+  width: 90%;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 0px 30px 0px rgba(201, 227, 240, 0.5);
+}
+
+.signInMainContainer form .title {
+  color: #252525;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-top: 30px;
 }
 
 .errorText {
@@ -85,4 +91,13 @@
   font-size: 1.6rem;
   text-align: center;
   color: #252525;
+}
+
+.bottomSentence {
+  font-size: 0.8rem;
+  margin-bottom: 30px;
+}
+
+.bottomSentence a {
+  color: #71a6ff;
 }

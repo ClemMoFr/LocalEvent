@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Pour gérer les redirections
+import { Link, useNavigate } from "react-router-dom"; // Pour gérer les redirections
 import "./Signin.css";
 
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
@@ -60,14 +60,13 @@ const Signin = () => {
   return (
     <div className="signInMainContainer">
       <div className="signInLogo">LocalEvent.</div>
-      <p className="subtitle">
-        Connectez-vous pour profitez pleinement de l'application !
-      </p>
       <form onSubmit={handleLoginSubmit}>
+        <p className="title">Se connecter</p>
         <label>
           <p>Adresse email</p>
           <input
             type="email"
+            id="email"
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             required
@@ -93,6 +92,10 @@ const Signin = () => {
         <button className="settingsButton" type="submit">
           Se connecter
         </button>
+        <p className="bottomSentence">
+          Pas encore inscrit ?{" "}
+          <Link to="/inscription">Créer votre compte !</Link>
+        </p>
       </form>
     </div>
   );

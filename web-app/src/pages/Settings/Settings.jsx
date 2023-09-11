@@ -6,6 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
 import PopupModifySettings from "../../components/popup-modify-settings/PopupModifySettings";
 import Signin from "../Signin/Signin";
+import Signup from "../Signup/Signup";
 
 const Settings = () => {
   const [statePopupModifyProfil, setStatePopupModifyProfil] = useState(false);
@@ -73,7 +74,9 @@ const Settings = () => {
           )}
         </>
       ) : (
-        <Signin />
+        <div>
+          <Signup />
+        </div>
       )}
     </div>
   );

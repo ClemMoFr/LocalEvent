@@ -3,7 +3,7 @@ import "./Signup.css";
 
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -82,17 +82,22 @@ const Signup = () => {
           } catch (error) {}
         }}
       >
+        <p className="title">S'inscrire</p>
         <label>
           <p>votre prénom</p>
           <input
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            required
           ></input>
         </label>
         <label>
           <p>votre adresse mail</p>
           <input
             value={userMail}
+            type="email"
+            size="30"
+            required
             onChange={(e) => setUserMail(e.target.value)}
           ></input>
         </label>
@@ -101,6 +106,7 @@ const Signup = () => {
           <input
             type={showPassword ? "text" : "password"}
             value={password}
+            required
             onChange={handlePasswordChange}
           ></input>
           <div className="containerEye" onClick={toggleShowPassword}>
@@ -117,6 +123,7 @@ const Signup = () => {
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
+            required
           ></input>
           {error && <p className="errorText">{error}</p>}
           <div className="containerEye" onClick={toggleShowConfirmPassword}>
@@ -130,6 +137,9 @@ const Signup = () => {
         <button className="settingsButton" type="submit">
           S'enregistrer
         </button>
+        <p className="bottomSentence">
+          Déjà inscrit ? <Link to="/connexion">Connectez vous !</Link>
+        </p>
       </form>
     </div>
   );
