@@ -52,10 +52,17 @@ const CardEventDetails = () => {
         iconUrl: require("leaflet/dist/images/marker-icon.png"),
         iconSize: [25, 41],
       });
-
+      const popupContent = `
+      <div class="popup-content">
+        <img class="popup-image" src="${event.eventImage}" alt="${event.eventTitle}" />
+        <div class="popup-text">
+          <b>${event.eventTitle}</b><br>${event.eventAddress}<br>
+        </div>
+      </div>
+    `;
       L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
         .addTo(map)
-        .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
+        .bindPopup(popupContent)
         .openPopup();
 
       return () => {

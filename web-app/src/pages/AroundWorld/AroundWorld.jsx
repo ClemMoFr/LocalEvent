@@ -47,9 +47,20 @@ const AroundWorld = () => {
     // Ajoutez les marqueurs à la carte en utilisant la variable map
     if (map && events) {
       events.forEach((event, index) => {
+        const popupContent = `
+        <div class="popup-content">
+          <img class="popup-image" src="${event.eventImage}" alt="${
+          event.eventTitle
+        }" />
+          <div class="popup-text">
+            <b>${event.eventTitle}</b><br>${event.eventAddress}<br>
+            <a href="/${encodeURIComponent(event.eventTitle)}">Voir détails</a>
+          </div>
+        </div>
+      `;
         L.marker([event.eventLat, event.eventLon], { icon: markerIcon })
           .addTo(map)
-          .bindPopup(`<b>${event.eventTitle}</b><br>${event.eventAddress}`)
+          .bindPopup(popupContent)
           .openPopup();
       });
     }
