@@ -88,6 +88,7 @@ const Signup = () => {
           <input
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            placeholder="Ex : Daniel"
             required
           ></input>
         </label>
@@ -97,6 +98,7 @@ const Signup = () => {
             value={userMail}
             type="email"
             size="30"
+            placeholder="Ex : dmartin@mail.com"
             required
             onChange={(e) => setUserMail(e.target.value)}
           ></input>
@@ -107,6 +109,7 @@ const Signup = () => {
             type={showPassword ? "text" : "password"}
             value={password}
             required
+            placeholder="............"
             onChange={handlePasswordChange}
           ></input>
           <div className="containerEye" onClick={toggleShowPassword}>
@@ -123,6 +126,7 @@ const Signup = () => {
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
+            placeholder="............"
             required
           ></input>
           {error && <p className="errorText">{error}</p>}

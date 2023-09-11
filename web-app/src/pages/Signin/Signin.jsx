@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Pour gérer les redirections
+import { Link, useNavigate } from "react-router-dom";
 import "./Signin.css";
 
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
@@ -9,8 +9,8 @@ const Signin = () => {
   const [userPassword, setUserPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [jwtToken, setJwtToken] = useState(""); // État pour stocker le jeton JWT
-  const navigate = useNavigate(); // Pour gérer les redirections
+  const [jwtToken, setJwtToken] = useState("");
+  const navigate = useNavigate();
 
   function reload() {
     window.location.reload(true);
@@ -38,17 +38,17 @@ const Signin = () => {
 
       if (response.ok) {
         const data = await response.json();
-        const token = data.token; // Récupérez le token depuis la réponse
-        setJwtToken(token); // Mettez à jour le state avec le token
-        localStorage.setItem("jwtToken", token); // Stockez le token dans le localStorage
+        const token = data.token;
+        setJwtToken(token);
+        localStorage.setItem("jwtToken", token);
         setLoginError("");
       } else {
         const errorData = await response.json();
-        setJwtToken(""); // Réinitialisez le jeton en cas d'erreur
+        setJwtToken("");
         setLoginError(errorData.error);
       }
     } catch (error) {
-      setJwtToken(""); // Réinitialisez le jeton en cas d'erreur
+      setJwtToken("");
       setLoginError("Une erreur s'est produite lors de la connexion.");
     }
   };
@@ -68,6 +68,7 @@ const Signin = () => {
             type="email"
             id="email"
             value={userEmail}
+            placeholder="Ex : dmartin@mail.com"
             onChange={(e) => setUserEmail(e.target.value)}
             required
           />
@@ -77,6 +78,7 @@ const Signin = () => {
           <input
             type={showPassword ? "text" : "password"}
             value={userPassword}
+            placeholder="............"
             onChange={(e) => setUserPassword(e.target.value)}
             required
           />
