@@ -98,11 +98,11 @@ const PanelAdmin = () => {
       >
         Ajouter un événement
       </button>
+      <p>Vos événements</p>
       <div className="panelAdminCardEvent">
         {isLoading ? (
           <p>Loading...</p>
-        ) : (
-          events &&
+        ) : events && events.length > 0 ? (
           events.map((event, index) => (
             <div
               onClick={() => {
@@ -117,6 +117,10 @@ const PanelAdmin = () => {
               />
             </div>
           ))
+        ) : (
+          <p className="noEventMessage">
+            Vous n'avez pas encore créé d'événements !
+          </p>
         )}
       </div>
       {isMapLoaded && <PopupAddEvent />}
