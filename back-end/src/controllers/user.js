@@ -17,6 +17,9 @@ const {
 } = require("../models/Event/manager");
 
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const get = async (req, res) => {
   const user = await getUser();
@@ -80,6 +83,8 @@ const del = async (req, res) => {
   }
 };
 
+const JWT_SECRET = process.env.JWT_SECRET;
+
 const getUserInfo = async (req, res) => {
   // Vérifiez le jeton JWT
   const token = req.headers.authorization;
@@ -88,7 +93,7 @@ const getUserInfo = async (req, res) => {
   }
 
   try {
-    const decodedToken = jwt.verify(token, "abc"); // Remplacez "abc" par votre secret JWT
+    const decodedToken = jwt.verify(token, JWT_SECRET); // Remplacez "abc" par votre secret JWT
     const userId = decodedToken.userId;
 
     // Récupérez les informations de l'utilisateur à partir de la base de données
@@ -179,7 +184,7 @@ const loginUser = async (req, res) => {
     return res.status(401).json({ error: "Mot de passe incorrect" });
   }
 
-  const token = jwt.sign({ userId: user.id }, "abc", {
+  const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
     expiresIn: "72h",
   });
 

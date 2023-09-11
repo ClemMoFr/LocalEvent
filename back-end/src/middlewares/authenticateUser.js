@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { getUserById } = require("../models/User/manager");
 
 const authenticateUser = async (req, res, next) => {
+  const JWT_SECRET = process.env.JWT_SECRET;
   try {
     // Excluez la vérification du jeton JWT pour la route 'user/login'
     if (req.path === "/login" && req.method === "POST") {
@@ -9,7 +10,7 @@ const authenticateUser = async (req, res, next) => {
     }
 
     const token = req.header("Authorization").replace("Bearer ", "");
-    const decoded = jwt.verify(token, "abc");
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     const user = await getUserById(decoded.userId);
 
