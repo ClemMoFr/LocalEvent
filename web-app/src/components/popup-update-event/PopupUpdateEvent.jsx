@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { BiSolidCameraPlus } from "react-icons/bi";
+import { BiHelpCircle, BiSolidCameraPlus } from "react-icons/bi";
 
 import imageCompression from "browser-image-compression";
 
 import axios from "axios";
 
 import "./PopupUpdateEvent.css";
+import PopupExplicationLink from "../popup-explication-link/PopupExplicationLink";
 
 const PopupUpdateEvent = ({
   id,
@@ -211,6 +212,8 @@ const PopupUpdateEvent = ({
     window.location.reload(true);
   }
 
+  const [popupExplicationLink, setPopupExplicationLink] = useState(false);
+
   return (
     <form
       className={"popupUpdateEventMainContainer"}
@@ -241,12 +244,26 @@ const PopupUpdateEvent = ({
             ></input>
           </label>
           <label>
-            <p>lien billeterie</p>
+            <p>
+              lien billeterie{" "}
+              <span onClick={() => setPopupExplicationLink(true)}>
+                <BiHelpCircle
+                  style={{
+                    color: "#72a6ff",
+                    fontSize: "1.6rem",
+                    fontWeight: "900",
+                    cursor: "pointer",
+                  }}
+                />
+              </span>
+            </p>
             <input
               value={eventTicketingTitleUpdatedData}
               onChange={(e) => {
                 setEventTicketingTitleUpdatedData(e.target.value);
               }}
+              disabled
+              style={{ backgroundColor: "#F0F0F0", color: "#A0A0A0" }}
             ></input>
           </label>
         </div>
@@ -339,6 +356,11 @@ const PopupUpdateEvent = ({
             </div>
           </div>
         </div>
+      )}
+      {popupExplicationLink && (
+        <PopupExplicationLink
+          popupExplicationLinkFunction={() => setPopupExplicationLink(false)}
+        />
       )}
     </form>
   );
