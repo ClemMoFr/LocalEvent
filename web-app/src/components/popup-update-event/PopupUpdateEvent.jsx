@@ -186,8 +186,11 @@ const PopupUpdateEvent = ({
   const [popupDelete, setPopupDelete] = useState(false);
 
   function deleteEvent(id) {
-    const response = fetch(`http://localhost:4000/event/${id}`, {
+    const response = fetch(`http://localhost:4000/user/event/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
     }).then((result) => {
       result.json().then(response);
       reload();
