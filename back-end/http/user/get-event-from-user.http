@@ -1,1 +1,2 @@
-GET http://localhost:4000/user/89847b51-b6f5-4f4b-8ea7-819b7a3e336f/event
+GET http://localhost:4000/user/7f9bbbed-3b5f-4c8d-8750-0080ab61062e/event
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3ZjliYmJlZC0zYjVmLTRjOGQtODc1MC0wMDgwYWI2MTA2MmUiLCJpYXQiOjE2OTQzNzc3MTksImV4cCI6MTY5NDYzNjkxOX0.M6ANN4fDupiBwr4NZdOkv787XR6-a_IntsmBvIpng-w

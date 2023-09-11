@@ -1,10 +1,10 @@
-POST http://localhost:4000/user/51800889-82da-4986-b58c-5df32c3762be/
+POST http://localhost:4000/user/7f9bbbed-3b5f-4c8d-8750-0080ab61062e
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MTgwMDg4OS04MmRhLTQ5ODYtYjU4Yy01ZGYzMmMzNzYyYmUiLCJpYXQiOjE2OTQyMDg4MTAsImV4cCI6MTY5NDIxMjQxMH0.xFVqOwpQFVNzCH3KKfvTHewX1j6V7Q-tWvNVhYSXe14
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3ZjliYmJlZC0zYjVmLTRjOGQtODc1MC0wMDgwYWI2MTA2MmUiLCJpYXQiOjE2OTQzNzc3MTksImV4cCI6MTY5NDYzNjkxOX0.M6ANN4fDupiBwr4NZdOkv787XR6-a_IntsmBvIpng-w
 
 {  
   "eventData": {
-    "eventTitle": "Super anniversaire",
+    "eventTitle": "Super anniversaire 3",
     "eventTicketingTitle": "https://www.youtube.com/",
     "eventDate": "Du 6 juillet au 21 juillet",
     "eventImage": "image de l'event",

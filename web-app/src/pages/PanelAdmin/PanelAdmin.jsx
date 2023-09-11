@@ -25,17 +25,69 @@ const PanelAdmin = () => {
     }
   }, [isMapLoadedUpdate]);
 
-  const [events, setEvents] = useState(null);
+  const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  console.log(events);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch("http://localhost:4000/event");
-      const fetchedEvent = await response.json();
-      setEvents(fetchedEvent);
-      setIsLoading(false);
-    })();
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch("http://localhost:4000/user/infos", {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          setUserId(userData.id);
+        } else {
+        }
+      } catch (error) {}
+    };
+
+    fetchUserInfo();
   }, []);
+
+  useEffect(() => {
+    const fetchEventUser = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:4000/user/${userId}/event`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (response.ok) {
+          const eventData = await response.json();
+          setEvents(eventData);
+          setIsLoading(false);
+        } else {
+          console.error("Erreur lors de la récupération des événements");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la requête vers l'API", error);
+      }
+    };
+
+    fetchEventUser();
+  }, [userId]);
 
   return (
     <div className="panelAdminMainContainer">
@@ -50,6 +102,7 @@ const PanelAdmin = () => {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
+          events &&
           events.map((event, index) => (
             <div
               onClick={() => {
