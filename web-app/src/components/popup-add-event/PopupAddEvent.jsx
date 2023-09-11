@@ -8,6 +8,7 @@ import imageCompression from "browser-image-compression";
 import axios from "axios";
 
 import "./PopupAddEvent.css";
+import PopupExplicationLink from "../popup-explication-link/PopupExplicationLink";
 
 const PopupAddEvent = () => {
   const [map, setMap] = useState(null);
@@ -215,6 +216,8 @@ const PopupAddEvent = () => {
     }
   }
 
+  const [popupExplicationLink, setPopupExplicationLink] = useState(false);
+
   return (
     <form
       className={"popupAddEventMainContainer"}
@@ -261,12 +264,13 @@ const PopupAddEvent = () => {
           <label>
             <p>
               lien billeterie{" "}
-              <span>
+              <span onClick={() => setPopupExplicationLink(true)}>
                 <BiHelpCircle
                   style={{
                     color: "#72a6ff",
                     fontSize: "1.6rem",
                     fontWeight: "900",
+                    cursor: "pointer",
                   }}
                 />
               </span>
@@ -354,6 +358,11 @@ const PopupAddEvent = () => {
       <button className="popupAddEventBtnAddEvent" type="submit">
         Ajouter l'événement
       </button>
+      {popupExplicationLink && (
+        <PopupExplicationLink
+          popupExplicationLinkFunction={() => setPopupExplicationLink(false)}
+        />
+      )}
     </form>
   );
 };

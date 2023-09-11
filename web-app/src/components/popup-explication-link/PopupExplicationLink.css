@@ -1,0 +1,35 @@
+.popupExplicationLinkMainContainer {
+  width: 100%;
+  height: 100vh;
+  background: rgba(139, 138, 138, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popupExplicationLinkContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 90%;
+  background-color: #fcfeff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.popupExplicationLinkContainer p:nth-child(1) {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.popupExplicationLinkContainer p:nth-child(2) {
+  font-size: 1rem;
+  text-align: justify;
+  margin: 20px 0px;
+}
