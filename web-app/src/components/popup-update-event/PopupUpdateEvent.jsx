@@ -155,10 +155,15 @@ const PopupUpdateEvent = ({
 
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const jwtToken = localStorage.getItem("jwtToken");
+
   async function updateEvent(id) {
-    const response = await fetch(`http://localhost:4000/event/${id}`, {
+    const response = await fetch(`http://localhost:4000/user/event/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
       body: JSON.stringify({
         eventTitle: eventTitleUpdatedData,
         eventDate: eventDateUpdatedData,
