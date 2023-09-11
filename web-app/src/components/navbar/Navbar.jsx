@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 
 import { AiFillHome, AiFillHeart } from "react-icons/ai";
 import { IoEarth } from "react-icons/io5";
 import { VscSettings } from "react-icons/vsc";
-
 import { FaUser } from "react-icons/fa";
-
 import { Link } from "react-router-dom";
 
 const Navbar = ({
@@ -17,6 +15,42 @@ const Navbar = ({
   handleNavPanel,
   handleNavSetting,
 }) => {
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null); // Définir null comme valeur initiale
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch("http://localhost:4000/user/infos", {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          setIsLoading(false);
+          // Définir userRole ici après avoir reçu les données de l'utilisateur
+          setUserRole(userData.userRole);
+        } else {
+        }
+      } catch (error) {}
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  console.log(userRole);
+
   return (
     <div className="navbar">
       <div className="iconContainer">
@@ -40,25 +74,27 @@ const Navbar = ({
           </div>
         </Link>
 
-        <Link to={"/favoris"}>
-          <div
-            className={
-              stateNavbar === "favorite"
-                ? "navbarIconContainerOn"
-                : "navbarIconContainerOff"
-            }
-            onClick={handleNavFavorite}
-          >
-            <AiFillHeart className="navbarIcon" />
-            <p
+        {jwtToken && (
+          <Link to={"/favoris"}>
+            <div
               className={
-                stateNavbar === "favorite" ? "navbarIconOn" : "navbarIconOff"
+                stateNavbar === "favorite"
+                  ? "navbarIconContainerOn"
+                  : "navbarIconContainerOff"
               }
+              onClick={handleNavFavorite}
             >
-              favoris
-            </p>
-          </div>
-        </Link>
+              <AiFillHeart className="navbarIcon" />
+              <p
+                className={
+                  stateNavbar === "favorite" ? "navbarIconOn" : "navbarIconOff"
+                }
+              >
+                favoris
+              </p>
+            </div>
+          </Link>
+        )}
 
         <Link to={"/autour-du-monde"}>
           <div
@@ -80,25 +116,27 @@ const Navbar = ({
           </div>
         </Link>
 
-        <Link to={"/panel-admin"}>
-          <div
-            className={
-              stateNavbar === "panel"
-                ? "navbarIconContainerOn"
-                : "navbarIconContainerOff"
-            }
-            onClick={handleNavPanel}
-          >
-            <VscSettings className="navbarIcon" />
-            <p
+        {jwtToken && userRole === "administrateur" && (
+          <Link to={"/panel-admin"}>
+            <div
               className={
-                stateNavbar === "panel" ? "navbarIconOn" : "navbarIconOff"
+                stateNavbar === "panel"
+                  ? "navbarIconContainerOn"
+                  : "navbarIconContainerOff"
               }
+              onClick={handleNavPanel}
             >
-              panel admin
-            </p>
-          </div>
-        </Link>
+              <VscSettings className="navbarIcon" />
+              <p
+                className={
+                  stateNavbar === "panel" ? "navbarIconOn" : "navbarIconOff"
+                }
+              >
+                panel admin
+              </p>
+            </div>
+          </Link>
+        )}
 
         <Link to={"/paramètres"}>
           <div

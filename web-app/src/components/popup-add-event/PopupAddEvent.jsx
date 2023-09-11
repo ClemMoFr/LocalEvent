@@ -118,7 +118,6 @@ const PopupAddEvent = () => {
   const [eventTicketingTitle, setEventTicketingTitle] = useState("");
 
   const [eventDescription, setEventDescription] = useState("");
-  // const [eventAddress, setEventAddress] = useState("");
   const [eventLat, setEventLat] = useState("");
   const [eventLon, setEventLon] = useState("");
   const [eventType, setEventType] = useState("");
@@ -136,6 +135,37 @@ const PopupAddEvent = () => {
     window.location.reload(true);
   }
 
+  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          return;
+        }
+
+        const response = await fetch("http://localhost:4000/user/infos", {
+          headers: {
+            Authorization: token,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          setUserId(userData.id);
+        } else {
+        }
+      } catch (error) {}
+    };
+
+    fetchUserInfo();
+  }, []);
+
   async function createEvent(
     eventTitle,
     eventDate,
@@ -149,22 +179,28 @@ const PopupAddEvent = () => {
     isFavorite
   ) {
     try {
-      const response = await fetch("http://localhost:4000/event", {
+      const eventData = {
+        eventTitle,
+        eventDate,
+        eventTicketingTitle,
+        eventImage,
+        eventDescription,
+        eventAddress,
+        eventType,
+        eventLat,
+        eventLon,
+        isFavorite,
+      };
+
+      const response = await fetch(`http://localhost:4000/user/${user.id}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          eventTitle,
-          eventDate,
-          eventTicketingTitle,
-          eventImage,
-          eventDescription,
-          eventAddress,
-          eventType,
-          eventLat,
-          eventLon,
-          isFavorite,
-        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
+        body: JSON.stringify({ eventData }), // Pass the eventData object here
       });
+
       const newEvent = await response.json();
       if (!response.ok) {
         throw Error(await response.json());
