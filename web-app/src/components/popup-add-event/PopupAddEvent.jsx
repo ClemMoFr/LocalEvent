@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { BiSolidCameraPlus } from "react-icons/bi";
+import { BiSolidCameraPlus, BiHelpCircle } from "react-icons/bi";
 
 import imageCompression from "browser-image-compression";
 
@@ -115,12 +115,14 @@ const PopupAddEvent = () => {
 
   const [eventTitle, setEventTitle] = useState("");
   const [eventDate, setEventDate] = useState("");
-  const [eventTicketingTitle, setEventTicketingTitle] = useState("");
+  const [eventTicketingTitle, setEventTicketingTitle] = useState(
+    "https://www.google.com/"
+  );
 
   const [eventDescription, setEventDescription] = useState("");
   const [eventLat, setEventLat] = useState("");
   const [eventLon, setEventLon] = useState("");
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState("Spectacle");
   const [isFavorite, setIsFavorite] = useState(false);
 
   console.log("Titre de l'événement" + eventTitle);
@@ -198,7 +200,7 @@ const PopupAddEvent = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${jwtToken}`,
         },
-        body: JSON.stringify({ eventData }), // Pass the eventData object here
+        body: JSON.stringify({ eventData }),
       });
 
       const newEvent = await response.json();
@@ -241,6 +243,7 @@ const PopupAddEvent = () => {
           onChange={(e) => {
             setEventTitle(e.target.value);
           }}
+          placeholder="ex : Braderie rue Victor Hugo"
         ></input>
       </label>
       <div className="popupAddEventTopBlock">
@@ -252,15 +255,29 @@ const PopupAddEvent = () => {
               onChange={(e) => {
                 setEventDate(e.target.value);
               }}
+              placeholder="Ex : Du 16 au 18 septembre 2023"
             ></input>
           </label>
           <label>
-            <p>lien billeterie</p>
+            <p>
+              lien billeterie{" "}
+              <span>
+                <BiHelpCircle
+                  style={{
+                    color: "#72a6ff",
+                    fontSize: "1.6rem",
+                    fontWeight: "900",
+                  }}
+                />
+              </span>
+            </p>
             <input
               value={eventTicketingTitle}
               onChange={(e) => {
                 setEventTicketingTitle(e.target.value);
               }}
+              disabled
+              style={{ backgroundColor: "#F0F0F0", color: "#A0A0A0" }}
             ></input>
           </label>
         </div>
@@ -295,13 +312,19 @@ const PopupAddEvent = () => {
           onChange={(e) => {
             setEventDescription(e.target.value);
           }}
+          placeholder="Ex : Description de votre événement"
         ></textarea>
       </label>
       <div className="popupAddEventBottomBlock">
         <label>
           <p>lieu de l’événement</p>
           <div className="popupAddEventBottomBlockInputAdressContainer">
-            <input type="text" value={address} onChange={handleAddressChange} />
+            <input
+              type="text"
+              value={address}
+              onChange={handleAddressChange}
+              placeholder="Ex : 30 rue Victor Hugo, Lyon"
+            />
             <p className="btnSearchAdress" onClick={handleSearch}>
               Ok
             </p>
