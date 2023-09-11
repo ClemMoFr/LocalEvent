@@ -17,9 +17,9 @@ const Signin = () => {
   }
 
   useEffect(() => {
-    // Redirigez l'utilisateur vers une page après une connexion réussie
     if (jwtToken) {
-      navigate("/"); // Vous devez avoir une route "/profile" définie dans votre application
+      navigate("/");
+      sessionStorage.setItem("stateNavbar", "home");
       reload();
     }
   }, [jwtToken, navigate]);
