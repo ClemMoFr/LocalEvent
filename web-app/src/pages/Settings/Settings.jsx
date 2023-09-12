@@ -4,14 +4,27 @@ import "./Settings.css";
 
 import { FaUser } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
+import { GrLogout } from "react-icons/gr";
 import PopupModifySettings from "../../components/popup-modify-settings/PopupModifySettings";
-import Signin from "../Signin/Signin";
 import Signup from "../Signup/Signup";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const [statePopupModifyProfil, setStatePopupModifyProfil] = useState(false);
   const [stateWave, setStateWave] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const navigate = useNavigate();
+
+  function logout() {
+    localStorage.removeItem("jwtToken");
+    sessionStorage.setItem("stateNavbar", "home");
+    navigate("/");
+    reload();
+  }
+
+  function reload() {
+    window.location.reload(true);
+  }
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -72,6 +85,11 @@ const Settings = () => {
           {statePopupModifyProfil && (
             <PopupModifySettings stateWave={stateWave} />
           )}
+
+          <p className="deconnexion" onClick={() => logout()}>
+            <GrLogout className="deconnexionIcon" />
+            Se déconnecter
+          </p>
         </>
       ) : (
         <div>
